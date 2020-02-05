@@ -15,7 +15,7 @@ class CreateContracts < ActiveRecord::Migration[6.0]
       t.integer :monthsEstimated
       t.integer :monthsCurrent
       t.integer :monthsOverDue
-
+      t.integer :contractor_id
       t.timestamps
     end
   end

@@ -8,7 +8,7 @@ class CreateContractors < ActiveRecord::Migration[6.0]
       t.string :companyName
       t.string :city
       t.string :country
-
+      
       t.timestamps
     end
   end

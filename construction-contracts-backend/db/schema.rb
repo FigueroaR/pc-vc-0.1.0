@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_05_100313) do
+ActiveRecord::Schema.define(version: 2020_02_05_100244) do
 
   create_table "contractors", force: :cascade do |t|
     t.string "firstName"
@@ -39,25 +39,9 @@ ActiveRecord::Schema.define(version: 2020_02_05_100313) do
     t.integer "monthsEstimated"
     t.integer "monthsCurrent"
     t.integer "monthsOverDue"
+    t.integer "contractor_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "supervisors", force: :cascade do |t|
-    t.string "firstName"
-    t.string "lastName"
-    t.integer "phoneNum"
-    t.string "email"
-    t.string "city"
-    t.string "country"
-    t.integer "contractor_id", null: false
-    t.integer "contract_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["contract_id"], name: "index_supervisors_on_contract_id"
-    t.index ["contractor_id"], name: "index_supervisors_on_contractor_id"
-  end
-
-  add_foreign_key "supervisors", "contractors"
-  add_foreign_key "supervisors", "contracts"
 end
