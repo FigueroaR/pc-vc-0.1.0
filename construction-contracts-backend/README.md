@@ -1,8 +1,5 @@
-Contractor has many supervisors ------contractor.supervisors
-           has many contracts thriugh supervisors  ----contractor.supervisor.contracts
-
-supervisor belongs to contract -------supervisor.contract
-           belongs to contractor -----supervisor.contractor
+Contractor has many contracts ------contractor.supervisors
+           has many contracts thriugh sup
 
 contract one supervisor       ------contract.supervisor
          has one contractor through supervisor ----contract.contractor
@@ -17,16 +14,6 @@ table contractor do
     city
     country 
 end
-
-table supervisor 
-        firstName
-        lastName
-        phoneNum
-        email
-        city
-        country 
-        contractor:references
-        contract:references 
 
 table contract 
         projectName
