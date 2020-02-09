@@ -2,22 +2,28 @@ const BASE_URL = `localhost:3000`
 
 
 window.addEventListener('DOMDocumentLoaded', () => {
-    showContractors();
+    showContrators();
     //showContracts();
     contractorForms();
 })
 
-function showContractors(){
+function showContrators(){
     //console.log("i think its working")
     clearForm();
     let main = document.getElementById("main-form")
     fetch("http://localhost:3000/contractors")
     .then(resp => resp.json())
-    .then(contractors => 
-        main.innerHTML += contractors.map( one => { ` 
-            <li><a href="#" data-id="${one.id}">${one.firsName}</a></li>`.join('')
-        })     
-    )
+    .then(todos => {
+        main.innerHTML+= todos.map(todo =>  `
+        <li><a href="#" data-id="${todo.id}">${todo.lastName}</a> 
+        <button data-id=${todo.id} onclick="removeTodo(${todo.id})"; return false;>Delete</button>
+        <button data-id=${todo.id} onclick="editTodo(${todo.id})"; return false;>Edit</button>
+        </li>
+        `).join('')
+
+        //attachClickToTodoLinks()
+    })
+
 }
 
 function displayContractorForms() {
