@@ -1,3 +1,3 @@
-class Contract < ApplicationRecord
+class Contract < ActiveRecord::Base
     belongs_to :contractor
 end

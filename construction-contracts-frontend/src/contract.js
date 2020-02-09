@@ -19,7 +19,5 @@ class contract {
             this.contractor_id = contractor_id
     }
 
-    makeContract(){
-        
-    }
+    
 }
