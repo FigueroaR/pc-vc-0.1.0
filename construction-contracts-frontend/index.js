@@ -2,12 +2,12 @@ const BASE_URL = `localhost:3000`
 
 
 window.addEventListener('DOMDocumentLoaded', () => {
-    showContrators();
+    showContractors();
     //showContracts();
     contractorForms();
 })
 
-function showContrators(){
+function showContractors(){
     //console.log("i think its working")
     clearForm();
     let main = document.getElementById("main-form")
@@ -21,7 +21,7 @@ function showContrators(){
         </li>
         `).join('')
 
-        //attachClickToTodoLinks()
+        attachClickToContractors()
     })
 
 }
