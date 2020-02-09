@@ -1,6 +1,6 @@
 class ContractorSerializer < ActiveModel::Serializer
   attributes :id, 
-  :firsName, 
+  :firstName, 
   :lastName, 
   :phoneNum,
   :email,

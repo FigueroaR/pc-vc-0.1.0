@@ -1,11 +1,24 @@
-const BASE_URL = "http://localhost:3000"
+const BASE_URL = `localhost:3000`
 
 
 window.addEventListener('DOMDocumentLoaded', () => {
-    //showContractors();
+    showContractors();
     //showContracts();
     contractorForms();
 })
+
+function showContractors(){
+    //console.log("i think its working")
+    clearForm();
+    let main = document.getElementById("main-form")
+    fetch("http://localhost:3000/contractors")
+    .then(resp => resp.json())
+    .then(contractors => 
+        main.innerHTML += contractors.map( one => { ` 
+            <li><a href="#" data-id="${one.id}">${one.firsName}</a></li>`.join('')
+        })     
+    )
+}
 
 function displayContractorForms() {
     clearForm();
@@ -35,8 +48,40 @@ function displayContractorForms() {
 }
 
 function createContractor(){
-    
+    user = {
+        firstName: document.getElementById("First Name").value,
+        lastName: document.getElementById("Last Name").value,
+        phoneNum: document.getElementById("Phone Num").value,
+        email: document.getElementById("email").value,
+        companyName: document.getElementById("Company Name").value,
+        city: document.getElementById("City").value,
+        country: document.getElementById("Country").value
+    }
+
+    fetch(BASE_URL+'/contractors',{
+        method: "POST",
+        body: JSON.stringify(user),
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+    .then(resp => resp.json())
+    .then(person => {
+        document.getElementById("main-form").innerHTML += `
+        <li><a href="#" data-id="${person.id}">${person.lastName}</a>
+         - ${person.completed ? "Completed" : "Not Completed"}
+         <button data-id=${person.id} onclick="removeContractor(${person.id})"; return false;>Delete</button>
+         <button data-id=${person.id} onclick="editContractor(${person.id})"; return false;>Edit</button>
+         <button data-id=${person.id} onclick="assignProject(${person.id})"; return false;>Assign Project</button>
+         </li>
+        `
+        attachClickToTodoLinks()
+        clearForm()
+    })
 }
+
+
 
 function clearForm(){
    let main = document.getElementById("main-form")
@@ -44,17 +89,6 @@ function clearForm(){
 }
 
 
-// function showContractors(){
-//     console.log("i think its working")
-//     clearForm()
-//     //main.innerHtml = ""
-//     fetch(BASE_URL+'/contractors')
-//     .then(resp => resp.json())
-//     .then(contractors => {
-//         main.innerHTML += contractors.map(c `
-//         <li><a href="#" data-id="${contractor.id}">${contractor.Firstname}</a></li>`).join('')
-//     })
-    
-// }
+
 
 
