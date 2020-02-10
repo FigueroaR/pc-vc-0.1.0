@@ -13,5 +13,6 @@ class ContractSerializer < ActiveModel::Serializer
   :projectCompleted, 
   :monthsEstimated, 
   :monthsCurrent, 
-  :monthsOverDue
+  :monthsOverDue,
+  :contractor_id
 end

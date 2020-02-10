@@ -16,7 +16,7 @@ class ContractsController < ApplicationController
   # POST /contracts
   def create
     
-    binding.pry
+    #binding.pry
     @contract = Contract.new(contract_params)
 
     if @contract.save
