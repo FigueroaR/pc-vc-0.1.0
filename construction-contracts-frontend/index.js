@@ -1,12 +1,12 @@
 const BASE_URL = "http://localhost:3000"
 
-window.addEventListener('DOMContentLoaded', (event) => {
+window.addEventListener('load', () => {
     showContractors()
     //console.log('DOM fully loaded and parsed');
 });
 
 function allProjects(){
-    clearForm();
+    //clearForm();
     let main = document.getElementById("main-form")
     fetch("http://localhost:3000/contracts")
     .then(resp => resp.json())
@@ -36,7 +36,7 @@ function removeProject(id){
 
 
 function assignProject(e){
-    clearForm();
+    //clearForm();
     let main = document.getElementById("main-form")
     let html = `
     <form onsubmit="createContract();return false;">
@@ -112,7 +112,7 @@ function createContract(){
 
 function removeContractor(id){
     //console.log("e", e)
-    clearForm();
+    //clearForm();
     fetch(`http://localhost:3000/contractors/${id}`, {
         method: "DELETE",
         headers: {
@@ -120,22 +120,25 @@ function removeContractor(id){
             'Accept': 'application/json'
         }
     })
+    preventDefault();
+    showContractors();
 }
 
 function editContractor(e){
-    clearForm();
+    //clearForm();
     console.log(e)
 }
 
 function showContractors(){
     //console.log("i think its working")
-    clearForm();
-    let main = document.getElementById("main-form")
+    //clearForm();
+    let main = document.getElementById("main")
+    main.innerHTML = "<h2>Contractors</h2>"
+
     fetch("http://localhost:3000/contractors")
     .then(resp => resp.json())
     .then(contractors => {
         main.innerHTML+= contractors.map(contractor =>  `
-        <h2>Contractors</h2>
         <li><a href="#" data-id="${contractor.id}">${contractor.lastName}</a> 
         <button data-id=${contractor.id} class="delete" onclick="removeContractor(${contractor.id})"; return false;>Delete</button>
         <button data-id=${contractor.id} class="edit" onclick="editContractor(${contractor.id})"; return false;>Edit</button>
@@ -147,7 +150,7 @@ function showContractors(){
 }
 
 function displayContractorForms() {
-    clearForm();
+    //clearForm();
     let main = document.getElementById("main-form")
     
     let html = `
@@ -169,9 +172,11 @@ function displayContractorForms() {
         <input type ="submit" value="Create Contractor">
     `
     main.innerHTML = html
+    
 }
 
 function createContractor(){
+    
     user = {
         firstName: document.getElementById("First Name").value,
         lastName: document.getElementById("Last Name").value,
@@ -190,14 +195,24 @@ function createContractor(){
             'Accept': 'application/json'
         }
     })
+    .then(resp => resp.json())
+    .then(contractors => {
+        main.innerHTML+= contractors.map(contractor =>  `
+        <li><a href="#" data-id="${contractor.id}">${contractor.lastName}</a> 
+        <button data-id=${contractor.id} class="delete" onclick="removeContractor(${contractor.id})"; return false;>Delete</button>
+        <button data-id=${contractor.id} class="edit" onclick="editContractor(${contractor.id})"; return false;>Edit</button>
+        <button data-id=${contractor.id} class="contract" onclick="assignProject(${contractor.id})"; return false;>Assign project</button>
+        </li>
+        `).join('')
+    })
 }
 
 
 
-function clearForm(){
-   let main = document.getElementById("main-form")
-   main.innerHTML = ""
-}
+// function clearForm(){
+//    let main = document.getElementById("main-form")
+//    main.innerHTML = ""
+// }
 
 
 

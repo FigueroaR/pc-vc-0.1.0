@@ -10,7 +10,7 @@ class contractor{
             this.country = country
     }
 
-    makeContractor(){
+    makeContractor( ){
 
     }
 
