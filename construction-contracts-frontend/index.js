@@ -1,10 +1,9 @@
 const BASE_URL = "http://localhost:3000"
 
-
-window.addEventListener('DOMDocumentLoaded', () => {
-    showContractors();
-    
-})
+window.addEventListener('DOMContentLoaded', (event) => {
+    showContractors()
+    //console.log('DOM fully loaded and parsed');
+});
 
 function allProjects(){
     clearForm();
@@ -14,13 +13,26 @@ function allProjects(){
     .then(projects => {
         main.innerHTML+= projects.map(project =>  `
         <li><a href="#" data-id="${project.id}">${project.projectName}</a> 
-        <button data-id=${project.id} class="delete" onclick="remove(${project.id})"; return false;>Delete</button>
+        <button data-id=${project.id} class="delete" onclick="removeProject(${project.id})"; return false;>Delete</button>
         <button data-id=${project.id} class="edit" onclick="editProject(${project.id})"; return false;>Edit</button>
         </li>
         `).join('')
     })
 
 }
+
+function removeProject(id){
+
+    fetch(BASE_URL + `/contracts/${id}`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+
+}
+
 
 
 function assignProject(e){
@@ -65,9 +77,7 @@ function assignProject(e){
     main.innerHTML = html
 }
 
-function createContract(e){
-    
-    
+function createContract(){
     contract = {
         projectName: document.getElementById("Project Name").value,
         projectStreet: document.getElementById("Project Street").value,
@@ -96,10 +106,20 @@ function createContract(e){
     })
 }
 
-function removeContractor(e){
+
+
+
+
+function removeContractor(id){
+    //console.log("e", e)
     clearForm();
-    console.log(e)
-    
+    fetch(`http://localhost:3000/contractors/${id}`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
 }
 
 function editContractor(e){
@@ -115,6 +135,7 @@ function showContractors(){
     .then(resp => resp.json())
     .then(contractors => {
         main.innerHTML+= contractors.map(contractor =>  `
+        <h2>Contractors</h2>
         <li><a href="#" data-id="${contractor.id}">${contractor.lastName}</a> 
         <button data-id=${contractor.id} class="delete" onclick="removeContractor(${contractor.id})"; return false;>Delete</button>
         <button data-id=${contractor.id} class="edit" onclick="editContractor(${contractor.id})"; return false;>Edit</button>

@@ -35,6 +35,7 @@ class ContractorsController < ApplicationController
 
   # DELETE /contractors/1
   def destroy
+    #binding.pry
     @contractor.destroy
   end
 
