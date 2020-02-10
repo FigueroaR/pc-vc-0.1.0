@@ -1,4 +1,4 @@
-const BASE_URL = `localhost:3000`
+const BASE_URL = "http://localhost:3000"
 
 
 window.addEventListener('DOMDocumentLoaded', () => {
@@ -76,7 +76,7 @@ function assignProject(e){
     <input type="number" id="Staff Total"></br>
 
     <label>Contractor has hidden field Id:</label>
-    <input type="hidden" id="contractorID" data-id=${e}></br>
+    <input type="hidden" id="contractorID" value=${e}></br>
     
     <label>Complete:</label>
     <input type ="checkbox" id="Prject Completed"></br>
@@ -103,6 +103,29 @@ function createContract(){
         monthsOverDue: document.getElementById("Months Overdue").value,
         contractor_id: document.getElementById("contractorID").value
     }
+
+    fetch(BASE_URL+'/contracts',{
+        method: "POST",
+        body: JSON.stringify(contract),
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+    .then(resp => resp.json())
+    .then(contract => {
+        document.getElementById("main-form").innerHTML += `
+        <li><a href="#" data-id="${contract.id}">${contract.projectName}</a>
+         - ${contract.completedCompleted ? "Completed" : "Not Completed"}
+         <button data-id=${contract.id} onclick="removeContract(${person.id})"; return false;>Delete</button>
+         <button data-id=${contract.id} onclick="editContract(${contract.id})"; return false;>Edit</button>
+         </li>
+        `  
+    })
+
+
+
+
 }
 
 
@@ -168,18 +191,6 @@ function createContractor(){
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         }
-    })
-    .then(resp => resp.json())
-    .then(person => {
-        document.getElementById("main-form").innerHTML += `
-        <li><a href="#" data-id="${person.id}">${person.lastName}</a>
-         - ${person.completed ? "Completed" : "Not Completed"}
-         <button data-id=${person.id} onclick="removeContractor(${person.id})"; return false;>Delete</button>
-         <button data-id=${person.id} onclick="editContractor(${person.id})"; return false;>Edit</button>
-         <button data-id=${person.id} onclick="assignProject(${person.id})"; return false;>Assign Project</button>
-         </li>
-        `
-        
     })
 }
 
