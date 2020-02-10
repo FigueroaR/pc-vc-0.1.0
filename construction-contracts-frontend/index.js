@@ -6,6 +6,25 @@ window.addEventListener('DOMDocumentLoaded', () => {
     //showContracts();
     contractorForms();
 })
+// function attachClickToContractors(){
+//     let deleteContractor = document.querySelectorAll("button.delete")
+//         deleteContractor.addEventListener("click", (e) => {
+//             console.log(e)
+//         })
+
+//     let editContractor = document.querySelectorAll("button.edit")
+//         editContractor.forEach( one => {
+//             one.addEventListener("click", (e) => {
+//                 console.log(e)
+//             })
+        
+//         })
+
+//     let newContract = document.querySelectorAll("button.contract")
+//         newContract.addEventListener("click", (e) => {
+//             console.log(e)
+//         })
+// }
 
 function showContractors(){
     //console.log("i think its working")
@@ -13,11 +32,12 @@ function showContractors(){
     let main = document.getElementById("main-form")
     fetch("http://localhost:3000/contractors")
     .then(resp => resp.json())
-    .then(todos => {
-        main.innerHTML+= todos.map(todo =>  `
-        <li><a href="#" data-id="${todo.id}">${todo.lastName}</a> 
-        <button data-id=${todo.id} onclick="removeTodo(${todo.id})"; return false;>Delete</button>
-        <button data-id=${todo.id} onclick="editTodo(${todo.id})"; return false;>Edit</button>
+    .then(contractors => {
+        main.innerHTML+= contractors.map(contractor =>  `
+        <li><a href="#" data-id="${contractor.id}">${contractor.lastName}</a> 
+        <button data-id=${contractor.id} class="delete" onclick="removeTodo(${contractor.id})"; return false;>Delete</button>
+        <button data-id=${contractor.id} class="edit" onclick="editTodo(${contractor.id})"; return false;>Edit</button>
+        <button data-id=${contractor.id} class="contract" onclick="assignProject(${contractor.id})"; return false;>Assign project</button>
         </li>
         `).join('')
 
