@@ -3,48 +3,28 @@ const BASE_URL = "http://localhost:3000"
 
 window.addEventListener('DOMDocumentLoaded', () => {
     showContractors();
-    //showContracts();
-    contractorForms();
-    attachClickToContractors()
+    
 })
 
-function attachClickToContractors(){
-    let deleteContractor = document.querySelectorAll("button.delete")
-        deleteContractor.forEach( one => {
-            one.addEventListener("click", (e) => {
-                removeContractor(e)
-            })
-        })
-
-    let editContractor = document.querySelectorAll("button.edit")
-        editContractor.forEach( one => {
-            one.addEventListener("click", (e) => {
-                editContractor(e)
-            })
-        })
-
-    let newContract = document.querySelectorAll("button.contract")
-        newContract.forEach( one => {
-            one.addEventListener("click", (e) => {
-                assignProject(e)
-            })
-        })
-}
-
-function removeContractor(e){
+function allProjects(){
     clearForm();
-    console.log(e)
-    
+    let main = document.getElementById("main-form")
+    fetch("http://localhost:3000/contracts")
+    .then(resp => resp.json())
+    .then(projects => {
+        main.innerHTML+= projects.map(project =>  `
+        <li><a href="#" data-id="${project.id}">${project.projectName}</a> 
+        <button data-id=${project.id} class="delete" onclick="remove(${project.id})"; return false;>Delete</button>
+        <button data-id=${project.id} class="edit" onclick="editProject(${project.id})"; return false;>Edit</button>
+        </li>
+        `).join('')
+    })
+
 }
 
-function editContractor(e){
-    clearForm();
-    console.log(e)
-}
 
 function assignProject(e){
     clearForm();
-    console.log(e)
     let main = document.getElementById("main-form")
     let html = `
     <form onsubmit="createContract();return false;">
@@ -76,16 +56,18 @@ function assignProject(e){
     <input type="number" id="Staff Total"></br>
 
     <label>Contractor has hidden field Id:</label>
-    <input type="hidden" id="contractorID" value=${e}></br>
+    <input type="hidden" id="contractorID" value="${e}" data-id="${e}"> </br>
     
     <label>Complete:</label>
-    <input type ="checkbox" id="Prject Completed"></br>
+    <input type ="checkbox" id="Project Completed"></br>
     <input type ="submit" value="Create Project Contract">
 `
     main.innerHTML = html
 }
 
-function createContract(){
+function createContract(e){
+    
+    
     contract = {
         projectName: document.getElementById("Project Name").value,
         projectStreet: document.getElementById("Project Street").value,
@@ -97,14 +79,14 @@ function createContract(){
         projectType: document.getElementById("Project Type").value, 
         projectInformation: document.getElementById("Project Information").value, 
         projectStaff: document.getElementById("Staff Total").value,
-        projectCompleted: document.getElementById("Prject Completed").value,
+        projectCompleted: document.getElementById("Project Completed").value,
         monthsEstimated: document.getElementById("Months Estimated").value, 
         monthsCurrent: document.getElementById("Months Current").value, 
         monthsOverDue: document.getElementById("Months Overdue").value,
         contractor_id: document.getElementById("contractorID").value
     }
 
-    fetch(BASE_URL+'/contracts',{
+    fetch("http://localhost:3000/contracts", {
         method: "POST",
         body: JSON.stringify(contract),
         headers: {
@@ -112,23 +94,18 @@ function createContract(){
             'Accept': 'application/json'
         }
     })
-    .then(resp => resp.json())
-    .then(contract => {
-        document.getElementById("main-form").innerHTML += `
-        <li><a href="#" data-id="${contract.id}">${contract.projectName}</a>
-         - ${contract.completedCompleted ? "Completed" : "Not Completed"}
-         <button data-id=${contract.id} onclick="removeContract(${person.id})"; return false;>Delete</button>
-         <button data-id=${contract.id} onclick="editContract(${contract.id})"; return false;>Edit</button>
-         </li>
-        `  
-    })
-
-
-
-
 }
 
+function removeContractor(e){
+    clearForm();
+    console.log(e)
+    
+}
 
+function editContractor(e){
+    clearForm();
+    console.log(e)
+}
 
 function showContractors(){
     //console.log("i think its working")

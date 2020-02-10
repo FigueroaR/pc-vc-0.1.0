@@ -15,6 +15,8 @@ class ContractsController < ApplicationController
 
   # POST /contracts
   def create
+    
+    binding.pry
     @contract = Contract.new(contract_params)
 
     if @contract.save
@@ -46,6 +48,8 @@ class ContractsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def contract_params
-      params.require(:contract).permit(:projectName, :projectStreet, :projectCity, :projectCountry, :projectBudget, :projectBeginDate, :projectEndDate, :projectType, :projectInformation, :projectStaff, :projectCompleted, :monthsEstimated, :monthsCurrent, :monthsOverDue)
+      params.require(:contract).permit(:projectName, :projectStreet, :projectCity, :projectCountry, 
+        :projectBudget, :projectBeginDate, :projectEndDate, :projectType, :projectInformation, :projectStaff, 
+        :projectCompleted, :monthsEstimated, :monthsCurrent, :monthsOverDue, :contractor_id)
     end
 end
