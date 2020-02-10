@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2020_02_05_100244) do
     t.string "projectCity"
     t.string "projectCountry"
     t.string "projectBudget"
-    t.datetime "projectBegginDate"
+    t.datetime "projectBeginDate"
     t.datetime "projectEndDate"
     t.string "projectType"
     t.string "projectInformation"

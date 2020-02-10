@@ -6,7 +6,7 @@ class CreateContracts < ActiveRecord::Migration[6.0]
       t.string :projectCity
       t.string :projectCountry
       t.string :projectBudget
-      t.timestamp :projectBegginDate
+      t.timestamp :projectBeginDate
       t.timestamp :projectEndDate
       t.string :projectType
       t.string :projectInformation

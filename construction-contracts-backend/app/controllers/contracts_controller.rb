@@ -46,6 +46,6 @@ class ContractsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def contract_params
-      params.require(:contract).permit(:projectName, :projectStreet, :projectCity, :projectCountry, :projectBudget, :projectBegginDate, :projectEndDate, :projectType, :projectInformation, :projectStaff, :projectCompleted, :monthsEstimated, :monthsCurrent, :monthsOverDue)
+      params.require(:contract).permit(:projectName, :projectStreet, :projectCity, :projectCountry, :projectBudget, :projectBeginDate, :projectEndDate, :projectType, :projectInformation, :projectStaff, :projectCompleted, :monthsEstimated, :monthsCurrent, :monthsOverDue)
     end
 end

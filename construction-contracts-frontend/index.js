@@ -49,36 +49,63 @@ function assignProject(e){
     let html = `
     <form onsubmit="createContract();return false;">
     <label>Project Name:</label>
-    <input type ="text" id="Project Name"></br>
+    <input type="text" id="Project Name"></br>
     <label>Project Street:</label>
-    <input type ="text" id="Project Street"></br>
+    <input type="text" id="Project Street"></br>
     <label>Project City:</label>
-    <input type ="text" id="Project City"></br>
+    <input type="text" id="Project City"></br>
+    <label>Project Country:</label>
+    <input type="text" id="Project Country"></br>
     <label>Budget:</label>
-    <input type ="text" id="Budget"></br>
-    <label>Beggin Date:</label>
-    <input type ="date" id="Beggin Date"></br>
+    <input type="number" id="Budget"></br>
+    <label>Begin Date:</label>
+    <input type="date" id="Begin Date"></br>
     <label>End Date:</label>
-    <input type ="date" id="End Date"></br>
+    <input type="date" id="End Date"></br>
     <label>Project Type:</label>
-    <input type ="text" id="Project Type"></br>
+    <input type="text" id="Project Type"></br>
     <label>Project Information:</label>
-    <input type ="text" id="Project Information"></br>
+    <input type="text" id="Project Information"></br>
     <label>Months Estimated:</label>
-    <input type ="number" id="Months Estimated"></br>
+    <input type="number" id="Months Estimated"></br>
     <label>Months Current:</label>
-    <input type ="number" id="Months Current"></br>
+    <input type="number" id="Months Current"></br>
     <label>Months Overdue:</label>
-    <input type ="number" id="Staff Total"></br>
+    <input type="number" id="Months Overdue"></br>
+    <label>Staff Total:</label>
+    <input type="number" id="Staff Total"></br>
+
     <label>Contractor has hidden field Id:</label>
-    <input type="hidden" id="${e}"></br>
+    <input type="hidden" id="contractorID" data-id=${e}></br>
     
-    <label>Compete:</label>
+    <label>Complete:</label>
     <input type ="checkbox" id="Prject Completed"></br>
-    <input type ="submit" value="Create Contractor">
+    <input type ="submit" value="Create Project Contract">
 `
     main.innerHTML = html
 }
+
+function createContract(){
+    contract = {
+        projectName: document.getElementById("Project Name").value,
+        projectStreet: document.getElementById("Project Street").value,
+        projectCity: document.getElementById("Project City").value, 
+        projectCountry: document.getElementById("Project Country").value,
+        projectBudget: document.getElementById("Budget").value,
+        projectBeginDate: document.getElementById("Begin Date").value, 
+        projectEndDate: document.getElementById("End Date").value, 
+        projectType: document.getElementById("Project Type").value, 
+        projectInformation: document.getElementById("Project Information").value, 
+        projectStaff: document.getElementById("Staff Total").value,
+        projectCompleted: document.getElementById("Prject Completed").value,
+        monthsEstimated: document.getElementById("Months Estimated").value, 
+        monthsCurrent: document.getElementById("Months Current").value, 
+        monthsOverDue: document.getElementById("Months Overdue").value,
+        contractor_id: document.getElementById("contractorID").value
+    }
+}
+
+
 
 function showContractors(){
     //console.log("i think its working")
@@ -118,8 +145,6 @@ function displayContractorForms() {
         <input type ="text" id="City"></br>
         <label>Country:</label>
         <input type ="text" id="Country"></br>
-        <label>Compete:</label>
-        <input type ="checkbox" id="completed"></br>
         <input type ="submit" value="Create Contractor">
     `
     main.innerHTML = html

@@ -5,7 +5,7 @@ class ContractSerializer < ActiveModel::Serializer
   :projectCity, 
   :projectCountry, 
   :projectBudget, 
-  :projectBegginDate, 
+  :projectBeginDate, 
   :projectEndDate, 
   :projectType, 
   :projectInformation, 
