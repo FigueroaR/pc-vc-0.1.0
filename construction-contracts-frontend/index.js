@@ -41,22 +41,33 @@ function allProjects(){
     .then(projects => {
         main.innerHTML+= projects.map(project =>  `
         <li><a href="#" data-id="${project.id}">${project.projectName}</a> 
-        <button data-id=${project.id} class="delete" onclick="removeProject(${project.id})"; return false;>Delete</button>
-        <button data-id=${project.id} class="edit" onclick="editProject(${project.id})"; return false;>Edit</button>
+        <button data-id=${project.id} class="deleteThisContract" >Delete</button>
+        <button data-id=${project.id} class="editThisContract" >Edit</button>
         </li>
-        `).join('')
+        `).join(''); 
+
+        let editproject = document.querySelectorAll("button.editThisContract")
+            editproject.forEach( editContractButton => {
+                editContractButton.addEventListener("click", (e) => {
+                    e.preventDefault()
+                    console.log(e.currentTarget.dataset.id)
+                    editProject(e)
+                    
+                })
+        })
+        
+        let deleteproject = document.querySelectorAll("button.deleteThisContract")
+            deleteproject.forEach( deleteButton => {
+                deleteButton.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    console.log(e.currentTarget.dataset.id)
+                    removeProject(e)
+            })
+        })
     })
 }
 
-function removeProject(id){
-    fetch(BASE_URL + `/contracts/${id}`, {
-        method: "DELETE",
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
-    })
-}
+
 
 function assignProject(e){
     //clearForm();
@@ -91,15 +102,22 @@ function assignProject(e){
     <label>Staff Total:</label>
     <input type="number" id="Staff Total"></br>
     <label>Contractor has hidden field Id:</label>
-    <input type="hidden" id="contractorID" value="${e.currentTarget.dataset.id}" data-id="${e.currentTarget.dataset.id}"> </br>
+    <input type="hidden" id="contractorID" value=${e.currentTarget.dataset.id} data-id=${e.currentTarget.dataset.id}> </br>
     
     <label>Complete:</label>
     <input type ="checkbox" id="Project Completed"></br>
-    <input type ="submit" value="Create Project Contract">
+    <input type ="submit" value="Create Project Contract" class="createProjectContract">
 `
     main.innerHTML = html
+    let executeContractor = document.querySelector("input.createProjectContract")
+    executeContractor.addEventListener("click", (e) => {
+        console.log(e)
+        e.preventDefault();
+        createContract(e);
+    })
 }
-function createContract(){
+function createContract(e){
+    e.preventDefault()
     contract = {
         projectName: document.getElementById("Project Name").value,
         projectStreet: document.getElementById("Project Street").value,
@@ -137,6 +155,64 @@ function createContract(){
     
 }
 
+function editProject(e){
+    fetch(BASE_URL + `/contracts/${e.currentTarget.dataset.id}`)
+    .then(resp => resp.json())
+    .then(project => {
+        let main = document.getElementById("main-form")
+    
+        let html = `
+        <form">
+        <label>Project Name:</label>
+        <input type="text" id="Project Name" value="${project.projectName}"></br>
+        <label>Project Street:</label>
+        <input type="text" id="Project Street" value="${project.projectStreet}"></br>
+        <label>Project City:</label>
+        <input type="text" id="Project City" value="${project.projectCity}"></br>
+        <label>Project Country:</label>
+        <input type="text" id="Project Country" value="${project.projectCountry}"></br>
+        <label>Budget:</label>
+        <input type="number" id="Budget" value="${project.projectBudget}"></br>
+        <label>Begin Date:</label>
+        <input type="date" id="Begin Date" value="${project.projectBeginDate}"></br>
+        <label>End Date:</label>
+        <input type="date" id="End Date" value="${project.projectEndDate}"></br>
+        <label>Project Type:</label>
+        <input type="text" id="Project Type" value="${project.projectType}"></br>
+        <label>Project Information:</label>
+        <input type="text" id="Project Information" value="${project.projectInformation}"></br>
+        <label>Months Estimated:</label>
+        <input type="number" id="Months Estimated" value="${project.monthsEstimated}"></br>
+        <label>Months Current:</label>
+        <input type="number" id="Months Current" value="${project.monthsCurrent}"></br>
+        <label>Months Overdue:</label>
+        <input type="number" id="Months Overdue" value="${project.monthsOverDue}"></br>
+        <label>Staff Total:</label>
+        <input type="number" id="Staff Total" value="${project.projectStaff}"></br>
+        <label>Contractor has hidden field Id:</label>
+        <input type="hidden" id="contractorID" value="${project.contractor_id}" data-id="${project.contractor_id}"> </br>
+        
+        <label>Complete:</label>
+        <input type ="checkbox" id="Project Completed" value="${project.projectCompleted}"></br>
+        <input type ="submit" value="Edit Project Contract">
+        `
+            main.innerHTML = html
+            
+    })
+    
+}
+
+function removeProject(e){
+    
+    fetch(BASE_URL + `/contracts/${e.currentTarget.dataset.id}`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+    .them(allProjects)
+}
 
 
 ///////////Contractor//////////////////////////
@@ -185,50 +261,6 @@ function showContractors(){
     })  
 }
 
-function removeContractor(e){
-    e.preventDefault();
-    //console.log("e", e)
-    clearForm();
-    fetch(`http://localhost:3000/contractors/${e.currentTarget.dataset.id}`, {
-        method: "DELETE",
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
-    })
-    .then(showContractors);
-}
-
-function editContractor(e){
-    //clearForm();
-    console.log(e)
-    fetch(`http://localhost:3000/contractors/${e.currentTarget.dataset.id}`) 
-    .then(resp => resp.json())
-    .then(contractor => {
-        let main = document.getElementById("main-form")
-    
-        let html = `
-            <form>
-            <label>First Name: </label>
-            <input type ="text" id="First Name" value="${contractor.firstName}"></br>
-            <label>Last Name:</label>
-            <input type ="text" id="Last Name" value="${contractor.lastName}"></br>
-            <label>Phone Num:</label>
-            <input type ="text" id="Phone Num" value="${contractor.phoneNum}"></br>
-            <label>email:</label>
-            <input type ="text" id="email" value="${contractor.email}"></br>
-            <label>Company Name:</label>
-            <input type ="text" id="Company Name" value="${contractor.companyName}"></br>
-            <label>City:</label>
-            <input type ="text" id="City"value="${contractor.city}"></br>
-            <label>Country:</label>
-            <input type ="text" id="Country" value="${contractor.country}"></br>
-            <input type ="submit" class="editContractor" value="Edit Contractor">
-            `
-            main.innerHTML = html
-    })
-}
-
 function displayContractorForms(e) {
     clearForm();
     e.preventDefault();
@@ -250,7 +282,7 @@ function displayContractorForms(e) {
         <input type ="text" id="City"></br>
         <label>Country:</label>
         <input type ="text" id="Country"></br>
-        <input type ="submit" class="CreateContractor" value="CreateContractor">
+        <input type ="submit" class="CreateContractor" value="Create Contractor">
     `
     main.innerHTML = html
     let executeContractor = document.querySelector("input.CreateContractor")
@@ -295,6 +327,54 @@ function createContractor(e){
     })
     
 }
+
+function removeContractor(e){
+    e.preventDefault();
+    //console.log("e", e)
+    clearForm();
+    fetch(`http://localhost:3000/contractors/${e.currentTarget.dataset.id}`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+    .then(showContractors);
+}
+
+function editContractor(e){
+    //clearForm();
+    e.preventDefault()
+    console.log(e)
+    fetch(`http://localhost:3000/contractors/${e.currentTarget.dataset.id}`) 
+    .then(resp => resp.json())
+    .then(contractor => {
+        let main = document.getElementById("main-form")
+    
+        let html = `
+            <form>
+            <label>First Name: </label>
+            <input type ="text" id="First Name" value="${contractor.firstName}"></br>
+            <label>Last Name:</label>
+            <input type ="text" id="Last Name" value="${contractor.lastName}"></br>
+            <label>Phone Num:</label>
+            <input type ="text" id="Phone Num" value="${contractor.phoneNum}"></br>
+            <label>email:</label>
+            <input type ="text" id="email" value="${contractor.email}"></br>
+            <label>Company Name:</label>
+            <input type ="text" id="Company Name" value="${contractor.companyName}"></br>
+            <label>City:</label>
+            <input type ="text" id="City"value="${contractor.city}"></br>
+            <label>Country:</label>
+            <input type ="text" id="Country" value="${contractor.country}"></br>
+            <input type ="submit" class="editContractor" value="Edit Contractor">
+            `
+            main.innerHTML = html
+            e.preventDefault()
+    })
+}
+
+
 
 ///////Clear Forum///////
 function clearForm(){

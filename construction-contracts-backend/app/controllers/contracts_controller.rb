@@ -28,6 +28,7 @@ class ContractsController < ApplicationController
 
   # PATCH/PUT /contracts/1
   def update
+    binding.pry
     if @contract.update(contract_params)
       render json: @contract
     else
