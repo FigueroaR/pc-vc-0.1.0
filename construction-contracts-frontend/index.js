@@ -193,50 +193,51 @@ function editProject(e){
         <input type ="checkbox" id="Project Completed" value="${project.projectCompleted}"></br>
         <input type ="submit" value="Edit Project Contract" class="editProjectContract"data-id="${project.id}">
         `
-            main.innerHTML = html
-            let editThisContractor = document.querySelector("input.editProjectContract")
-            editThisContractor.addEventListener("click", (e) => {
-                updateContract(e) 
-            }) 
+        main.innerHTML = html;
+        let editThisContractor = document.querySelector("input.editProjectContract")
+        editThisContractor.addEventListener("click", (e) => {
+            updateContract(e) 
+        }) 
     })
 }
 
-// function updateContract(e){
-//     contract = {
-//         projectName: document.getElementById("Project Name").value,
-//         projectStreet: document.getElementById("Project Street").value,
-//         projectCity: document.getElementById("Project City").value, 
-//         projectCountry: document.getElementById("Project Country").value,
-//         projectBudget: document.getElementById("Budget").value,
-//         projectBeginDate: document.getElementById("Begin Date").value, 
-//         projectEndDate: document.getElementById("End Date").value, 
-//         projectType: document.getElementById("Project Type").value, 
-//         projectInformation: document.getElementById("Project Information").value, 
-//         projectStaff: document.getElementById("Staff Total").value,
-//         projectCompleted: document.getElementById("Project Completed").value,
-//         monthsEstimated: document.getElementById("Months Estimated").value, 
-//         monthsCurrent: document.getElementById("Months Current").value, 
-//         monthsOverDue: document.getElementById("Months Overdue").value,
-//         contractor_id: document.getElementById("contractorID").value
-//     }
-//     fetch(`http://localhost:3000/contracts/"${e.currentTarget.dataset.id}"`, {
-//         method: "PATCH",
-//         body: JSON.stringify(contract),
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Accept': 'application/json'
-//         }
-//     })
-//     .then(resp => resp.json())
-//     .then(projects => {
-//          =  `
-//         <li><a href="#" data-id="${project.id}">${project.projectName}</a> 
-//         <button data-id=${project.id} class="delete" onclick="removeProject(${project.id})"; return false;>Delete</button>
-//         <button data-id=${project.id} class="edit" onclick="editProject(${project.id})"; return false;>Edit</button>
-//         </li>
-//         `).join('')
-//     })
-// }
+function updateContract(e){
+    contract = {
+        projectName: document.getElementById("Project Name").value,
+        projectStreet: document.getElementById("Project Street").value,
+        projectCity: document.getElementById("Project City").value, 
+        projectCountry: document.getElementById("Project Country").value,
+        projectBudget: document.getElementById("Budget").value,
+        projectBeginDate: document.getElementById("Begin Date").value, 
+        projectEndDate: document.getElementById("End Date").value, 
+        projectType: document.getElementById("Project Type").value, 
+        projectInformation: document.getElementById("Project Information").value, 
+        projectStaff: document.getElementById("Staff Total").value,
+        projectCompleted: document.getElementById("Project Completed").value,
+        monthsEstimated: document.getElementById("Months Estimated").value, 
+        monthsCurrent: document.getElementById("Months Current").value, 
+        monthsOverDue: document.getElementById("Months Overdue").value,
+        contractor_id: document.getElementById("contractorID").value
+    }
+    fetch(`http://localhost:3000/contracts/${e.currentTarget.dataset.id}`, {
+        method: "PATCH",
+        body: JSON.stringify(contract),
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+    .then(resp => resp.json())
+    .then(project => {
+        document.getElementsByTagName(`a[${e.currentTarget.dataset.id}"]`).innerHTML =  `
+        <li><a href="#" data-id="${project.id}">${project.projectName}</a> 
+        <button data-id=${project.id} class="delete" onclick="removeProject(${project.id})"; return false;>Delete</button>
+        <button data-id=${project.id} class="edit" onclick="editProject(${project.id})"; return false;>Edit</button>
+        </li>
+        `
+    })
+    clearForm()
+}
 
 function removeProject(e){
     
