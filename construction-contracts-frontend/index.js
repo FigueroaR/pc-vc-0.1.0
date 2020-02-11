@@ -75,7 +75,7 @@ function assignProject(e){
     e.preventDefault();
     let main = document.getElementById("main-form")
     let html = `
-    <form onsubmit="createContract();return false;">
+    <form class="createProjectContract">
     <label>Project Name:</label>
     <input type="text" id="Project Name"></br>
     <label>Project Street:</label>
@@ -107,18 +107,14 @@ function assignProject(e){
     
     <label>Complete:</label>
     <input type ="checkbox" id="Project Completed"></br>
-    <input type ="submit" value="Create Project Contract" class="createProjectContract">
+    <input type ="submit" value="Create Project Contract">
+    </form>
 `
     main.innerHTML = html
-    let executeContractor = document.querySelector("input.createProjectContract")
-    executeContractor.addEventListener("click", (e) => {
-        console.log(e)
-        e.preventDefault();
-        createContract(e);
-    })
+    let executeContractor = document.querySelector("form.createProjectContract")
+    executeContractor.addEventListener("submit", createContract)
 }
-function createContract(e){
-    e.preventDefault()
+function createContract(){
     contract = {
         projectName: document.getElementById("Project Name").value,
         projectStreet: document.getElementById("Project Street").value,
