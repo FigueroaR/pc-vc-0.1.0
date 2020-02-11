@@ -223,7 +223,7 @@ function editContractor(e){
             <input type ="text" id="City"value="${contractor.city}"></br>
             <label>Country:</label>
             <input type ="text" id="Country" value="${contractor.country}"></br>
-            <input type ="submit" class="CreateContractor" value="CreateContractor">
+            <input type ="submit" class="editContractor" value="Edit Contractor">
             `
             main.innerHTML = html
     })
