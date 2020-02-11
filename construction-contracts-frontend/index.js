@@ -354,9 +354,9 @@ function createContractor(){
     .then(contractor => {
         main.innerHTML+= `
         <li><a href="#" data-id="${contractor.id}">${contractor.lastName}</a> 
-        <button data-id=${contractor.id} class="delete"; return false;>Delete</button>
-        <button data-id=${contractor.id} class="edit" ; return false;>Edit</button>
-        <button data-id=${contractor.id} class="contract" ; return false;>Assign project</button>
+        <button data-id=${contractor.id} class="delete" >Delete</button>
+        <button data-id=${contractor.id} class="edit" >Edit</button>
+        <button data-id=${contractor.id} class="contract">Assign project</button>
         </li>
         `
     })
