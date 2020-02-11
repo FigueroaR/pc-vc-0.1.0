@@ -4,6 +4,7 @@ window.addEventListener('load', () => {
     showContractors()
     //console.log('DOM fully loaded and parsed');
     headerEventListeners();
+    clearForm();
 
 });
 ///////////Listeners///////
@@ -326,15 +327,10 @@ function displayContractorForms(e) {
     `
     main.innerHTML = html
     let executeContractor = document.querySelector("form.createContractor")
-    executeContractor.addEventListener("submit", (e) => {
-        console.log(e)
-        e.preventDefault();
-        createContractor(e);
-    })
+    executeContractor.addEventListener("submit", createContractor)
 
 }
-function createContractor(e){
-    e.preventDefault();
+function createContractor(){
 
     let main = document.getElementById("main")
     user = {
@@ -363,9 +359,7 @@ function createContractor(e){
         <button data-id=${contractor.id} class="contract" ; return false;>Assign project</button>
         </li>
         `
-    preventDefault();
     })
-    
 }
 
 
