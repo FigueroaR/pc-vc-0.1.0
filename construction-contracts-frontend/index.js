@@ -17,11 +17,7 @@ function headerEventListeners(){
         `
     ///onclick="allProjects()"; onclick="showContractors()";
     let contractors = document.querySelector("button.allContractors")
-        contractors.addEventListener("click", (e) => {
-            console.log("e",e )
-            showContractors();
-            
-        })
+        contractors.addEventListener("click",showContractors)
 
     let displayContractForm = document.querySelector("button.displayContractorForm")
         displayContractForm.addEventListener("click", (e) => {
@@ -169,11 +165,11 @@ function showContractors(){
                 })
         })
 
-        let editContractor = document.querySelectorAll("button.edit")
-            editContractor.forEach( editButton => {
+        let edit = document.querySelectorAll("button.edit")
+            edit.forEach( editButton => {
                 editButton.addEventListener("click", (e) => {
                     console.log(e.currentTarget.dataset.id)
-                    //editContractor(e)
+                    editContractor(e)
                     
                 })
         })
@@ -191,7 +187,7 @@ function showContractors(){
 
 function removeContractor(e){
     e.preventDefault();
-    console.log("e", e)
+    //console.log("e", e)
     clearForm();
     fetch(`http://localhost:3000/contractors/${e.currentTarget.dataset.id}`, {
         method: "DELETE",
@@ -206,16 +202,31 @@ function removeContractor(e){
 function editContractor(e){
     //clearForm();
     console.log(e)
-    // fetch(`http://localhost:3000/contractors/${e.currentTarget.dataset.id}`) 
-    // .then(resp => resp.json())
-    // .then(contractors => {
-    //     main.innerHTML+= contractors.map(contractor =>  `
-    //     <li><a href="#" data-id="${contractor.id}">${contractor.lastName}</a> 
-    //     <button data-id=${contractor.id} class="delete" >Delete</button>
-    //     <button data-id=${contractor.id} class="edit" >Edit</button>
-    //     <button data-id=${contractor.id} class="contract" >Assign project</button>
-    //     `
-    // })
+    fetch(`http://localhost:3000/contractors/${e.currentTarget.dataset.id}`) 
+    .then(resp => resp.json())
+    .then(contractor => {
+        let main = document.getElementById("main-form")
+    
+        let html = `
+            <form>
+            <label>First Name: </label>
+            <input type ="text" id="First Name" value="${contractor.firstName}"></br>
+            <label>Last Name:</label>
+            <input type ="text" id="Last Name" value="${contractor.lastName}"></br>
+            <label>Phone Num:</label>
+            <input type ="text" id="Phone Num" value="${contractor.phoneNum}"></br>
+            <label>email:</label>
+            <input type ="text" id="email" value="${contractor.email}"></br>
+            <label>Company Name:</label>
+            <input type ="text" id="Company Name" value="${contractor.companyName}"></br>
+            <label>City:</label>
+            <input type ="text" id="City"value="${contractor.city}"></br>
+            <label>Country:</label>
+            <input type ="text" id="Country" value="${contractor.country}"></br>
+            <input type ="submit" class="CreateContractor" value="CreateContractor">
+            `
+            main.innerHTML = html
+    })
 }
 
 function displayContractorForms(e) {
