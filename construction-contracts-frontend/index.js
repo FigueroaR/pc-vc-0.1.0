@@ -196,7 +196,7 @@ function editProject(e){
         main.innerHTML = html;
         let editThisContractor = document.querySelector("input.editProjectContract")
         editThisContractor.addEventListener("click", (e) => {
-            updateContract(e) 
+            updateContract(e.currentTarget.dataset.id) 
         }) 
     })
 }
@@ -219,7 +219,7 @@ function updateContract(e){
         monthsOverDue: document.getElementById("Months Overdue").value,
         contractor_id: document.getElementById("contractorID").value
     }
-    fetch(`http://localhost:3000/contracts/${e.currentTarget.dataset.id}`, {
+    fetch(`http://localhost:3000/contracts/${e}`, {
         method: "PATCH",
         body: JSON.stringify(contract),
         headers: {
@@ -229,7 +229,7 @@ function updateContract(e){
     })
     .then(resp => resp.json())
     .then(project => {
-        document.getElementsByTagName(`a[${e.currentTarget.dataset.id}"]`).innerHTML =  `
+        document.getElementsByTagName(`a[${e}]`).innerHTML =  `
         <li><a href="#" data-id="${project.id}">${project.projectName}</a> 
         <button data-id=${project.id} class="delete" onclick="removeProject(${project.id})"; return false;>Delete</button>
         <button data-id=${project.id} class="edit" onclick="editProject(${project.id})"; return false;>Edit</button>
@@ -417,7 +417,7 @@ function updateContractor(e){
     })
     .then(resp => resp.json())
     .then( contractor => {
-        document.getElementsByTagName(`a[${e.currentTarget.dataset.id}"]`).innerHTML = `
+        document.getElementsByTagName(`a[${e.currentTarget.dataset.id}]`).innerHTML = `
         <li><a href="#" data-id="${contractor.id}">${contractor.lastName}</a> 
         <button data-id=${contractor.id} class="delete"; return false;>Delete</button>
         <button data-id=${contractor.id} class="edit" ; return false;>Edit</button>
