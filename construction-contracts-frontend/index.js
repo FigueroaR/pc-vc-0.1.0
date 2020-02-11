@@ -1,9 +1,9 @@
 const BASE_URL = "http://localhost:3000"
 window.addEventListener('load', () => {
+    
     showContractors()
     //console.log('DOM fully loaded and parsed');
     headerEventListeners();
-    
 
 });
 ///////////Listeners///////
@@ -12,35 +12,32 @@ function headerEventListeners(){
         document.getElementById("links").innerHTML += `<ul>
         <button class="allContractors" >All contractors</button> 
         <button class="displayContractorForm" > New Contractor</button>
-        <button class="allProjects" > All projects</button>
+        <button class="allProject" > All projects</button>
         </ul> 
         `
-    
-    let showContractors = document.querySelector("button.allContractors")
-        showContractors.addEventListener("click", (e) => {
+    ///onclick="allProjects()"; onclick="showContractors()";
+    let contractors = document.querySelector("button.allContractors")
+        contractors.addEventListener("click", (e) => {
             console.log("e",e )
-            clearForm();
+            showContractors();
+            
         })
 
     let displayContractForm = document.querySelector("button.displayContractorForm")
         displayContractForm.addEventListener("click", (e) => {
+            e.preventDefault();
             console.log("e",e )
-            displayContractorForms();
+            displayContractorForms(e);
         })
 
-    let allProjects = document.querySelector("button.allProjects")
-        allProjects.addEventListener("click", (e) => {
-            console.log("e",e )
-            allProjects();
-        })
+    let projects = document.querySelector("button.allProject")
+        projects.addEventListener("click", allProjects)
 }
 
-// function attachClickToContractors(){
-    
-// }
 
 ///////////Project//////////////////
 function allProjects(){
+    document.getElementById("main").innerHTML = ""
     clearForm();
     let main = document.getElementById("main-form")
     fetch("http://localhost:3000/contracts")
@@ -54,6 +51,7 @@ function allProjects(){
         `).join('')
     })
 }
+
 function removeProject(id){
     fetch(BASE_URL + `/contracts/${id}`, {
         method: "DELETE",
@@ -131,7 +129,16 @@ function createContract(){
             'Accept': 'application/json'
         }
     })
-    clearForm();
+    .then(resp => resp.json())
+    .then(projects => {
+        main.innerHTML+= projects.map(project =>  `
+        <li><a href="#" data-id="${project.id}">${project.projectName}</a> 
+        <button data-id=${project.id} class="delete" onclick="removeProject(${project.id})"; return false;>Delete</button>
+        <button data-id=${project.id} class="edit" onclick="editProject(${project.id})"; return false;>Edit</button>
+        </li>
+        `).join('')
+    })
+    
 }
 
 
@@ -139,7 +146,8 @@ function createContract(){
 ///////////Contractor//////////////////////////
 function showContractors(){
     //console.log("i think its working")
-    //clearForm();
+    clearForm();
+    document.getElementById("main").innerHTML = ""
     let main = document.getElementById("main")
     main.innerHTML = "<h2>Contractors</h2>"
     fetch("http://localhost:3000/contractors")
@@ -147,18 +155,19 @@ function showContractors(){
     .then(contractors => {
         main.innerHTML+= contractors.map(contractor =>  `
         <li><a href="#" data-id="${contractor.id}">${contractor.lastName}</a> 
-        <button data-id=${contractor.id} class="delete" ; return false;>Delete</button>
-        <button data-id=${contractor.id} class="edit" ; return false;>Edit</button>
-        <button data-id=${contractor.id} class="contract" ; return false;>Assign project</button>
+        <button data-id=${contractor.id} class="delete" >Delete</button>
+        <button data-id=${contractor.id} class="edit" >Edit</button>
+        <button data-id=${contractor.id} class="contract" >Assign project</button>
         `).join('');
 
         let newContract = document.querySelectorAll("button.contract")
             newContract.forEach( assignProjectButton => {
                 assignProjectButton.addEventListener("click", (e) => {
+                    e.preventDefault()
                     console.log(e.currentTarget.dataset.id)
                     assignProject(e)
                 })
-            })
+        })
 
         let editContractor = document.querySelectorAll("button.edit")
             editContractor.forEach( editButton => {
@@ -167,23 +176,24 @@ function showContractors(){
                     //editContractor(e)
                     
                 })
-            })
+        })
         
-        let deleteContractor = document.querySelector("button.delete")
+        let deleteContractor = document.querySelectorAll("button.delete")
             deleteContractor.forEach( deleteButton => {
                 deleteButton.addEventListener("click", (e) => {
+                    e.preventDefault();
                     console.log(e.currentTarget.dataset.id)
-                    //removeContractor(e)
-                })
+                    removeContractor(e)
+            })
         })
-    })
-    
-    
+    })  
 }
-function removeContractor(id){
-    //console.log("e", e)
-    //clearForm();
-    fetch(`http://localhost:3000/contractors/${id}`, {
+
+function removeContractor(e){
+    e.preventDefault();
+    console.log("e", e)
+    clearForm();
+    fetch(`http://localhost:3000/contractors/${e.currentTarget.dataset.id}`, {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',
@@ -192,12 +202,25 @@ function removeContractor(id){
     })
     .then(showContractors);
 }
+
 function editContractor(e){
     //clearForm();
     console.log(e)
+    // fetch(`http://localhost:3000/contractors/${e.currentTarget.dataset.id}`) 
+    // .then(resp => resp.json())
+    // .then(contractors => {
+    //     main.innerHTML+= contractors.map(contractor =>  `
+    //     <li><a href="#" data-id="${contractor.id}">${contractor.lastName}</a> 
+    //     <button data-id=${contractor.id} class="delete" >Delete</button>
+    //     <button data-id=${contractor.id} class="edit" >Edit</button>
+    //     <button data-id=${contractor.id} class="contract" >Assign project</button>
+    //     `
+    // })
 }
-function displayContractorForms() {
-    //clearForm();
+
+function displayContractorForms(e) {
+    clearForm();
+    e.preventDefault();
     let main = document.getElementById("main-form")
     
     let html = `
@@ -216,18 +239,19 @@ function displayContractorForms() {
         <input type ="text" id="City"></br>
         <label>Country:</label>
         <input type ="text" id="Country"></br>
-        <input type ="submit" class="CreateContractor"value="Create Contractor">
+        <input type ="submit" class="CreateContractor" value="CreateContractor">
     `
     main.innerHTML = html
     let executeContractor = document.querySelector("input.CreateContractor")
     executeContractor.addEventListener("click", (e) => {
         console.log(e)
         e.preventDefault();
-        createContractor();
+        createContractor(e);
     })
 
 }
-function createContractor(){
+function createContractor(e){
+    e.preventDefault();
 
     let main = document.getElementById("main")
     user = {
@@ -256,7 +280,7 @@ function createContractor(){
         <button data-id=${contractor.id} class="contract" ; return false;>Assign project</button>
         </li>
         `
-    clearForm();
+    preventDefault();
     })
     
 }
