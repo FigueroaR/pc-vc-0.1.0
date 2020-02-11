@@ -367,14 +367,48 @@ function editContractor(e){
             <input type ="text" id="City"value="${contractor.city}"></br>
             <label>Country:</label>
             <input type ="text" id="Country" value="${contractor.country}"></br>
-            <input type ="submit" class="editContractor" value="Edit Contractor">
+            <input type ="submit" class="editContractor" value="Edit Contractor" data-id="${contractor.id}">
             `
             main.innerHTML = html
             e.preventDefault()
+
+            let editThisContractor = document.querySelector("input.editContractor")
+            editThisContractor.addEventListener("click", (e) => {
+                updateContractor(e) 
+            })
     })
 }
 
+function updateContractor(e){
+    user = {
+        firstName: document.getElementById("First Name").value,
+        lastName: document.getElementById("Last Name").value,
+        phoneNum: document.getElementById("Phone Num").value,
+        email: document.getElementById("email").value,
+        companyName: document.getElementById("Company Name").value,
+        city: document.getElementById("City").value,
+        country: document.getElementById("Country").value
+    }
+    fetch(BASE_URL+`/contractors/${e.currentTarget.dataset.id}`,{
+        method: "PATCH",
+        body: JSON.stringify(user),
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    })
+    .then(resp => resp.json())
+    .then( contractor => {
+        document.getElementsByTagName(`a[${e.currentTarget.dataset.id}"]`).innerHTML = `
+        <li><a href="#" data-id="${contractor.id}">${contractor.lastName}</a> 
+        <button data-id=${contractor.id} class="delete"; return false;>Delete</button>
+        <button data-id=${contractor.id} class="edit" ; return false;>Edit</button>
+        <button data-id=${contractor.id} class="contract" ; return false;>Assign project</button>
+        </li>
+        `
+    })
 
+}
 
 ///////Clear Forum///////
 function clearForm(){
