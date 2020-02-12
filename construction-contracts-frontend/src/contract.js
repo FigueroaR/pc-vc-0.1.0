@@ -158,15 +158,20 @@ function assignProject(e){
     
     <label>Complete:</label>
     <input type ="checkbox" id="Project Completed"></br>
-    <input type ="submit" value="Create Project Contract">
+    <input type ="submit" value="Create Project Contract" class="createProjectContract">
     </form>
     `
     main.innerHTML = html
-    let executeContractor = document.querySelector("form.createProjectContract")
-    executeContractor.addEventListener("submit", createContract)
+    let executeContractor = document.querySelector("input.createProjectContract")
+    executeContractor.addEventListener("click", (e) => {
+        createContract(e) 
+        e.preventDefault()
+        allProjects
+    } )
+    
 }
 
-function createContract(){
+function createContract(e){
     let newContract = new Contract(
     document.getElementById("Project Name").value , 
     document.getElementById("Project Street").value, 
@@ -194,14 +199,14 @@ function createContract(){
         }
     })
     .then(resp => resp.json())
-    .then(projects => {
-        main.innerHTML+= projects.map(project =>  `
+    .then(project => {
+        main.innerHTML+= `
         <li><a href="#" data-id="${project.id}">${project.projectName}</a> 
         ${project.projectCompleted ? "Completed" : "Not Completed"}
         <button data-id=${project.id} class="delete" onclick="removeProject(${project.id})"; return false;>Delete</button>
         <button data-id=${project.id} class="edit" onclick="editProject(${project.id})"; return false;>Edit</button>
         </li>
-        `).join('')
+        `
     })
     clearForm();
 }
@@ -298,7 +303,6 @@ function updateContract(e){
 }
 
 function removeProject(e){
-    clearForm();
     fetch(BASE_URL + `/contracts/${e.currentTarget.dataset.id}`, {
         method: "DELETE",
         headers: {
@@ -307,6 +311,8 @@ function removeProject(e){
         }
     })
     .then( e.currentTarget.parentElement.remove())
+    
+    
 }
 
 
