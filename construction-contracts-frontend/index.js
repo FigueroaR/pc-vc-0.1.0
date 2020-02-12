@@ -66,10 +66,60 @@ function allProjects(){
             })
         })
 
+        let individualContracts = document.querySelectorAll("a")
+            individualContracts.forEach( project => {
+                project.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    individualProject(e)
+                })
+        }) 
     })
 }
 
-
+function individualProject(e){
+    clearForm();
+    fetch(BASE_URL + `/contracts/${e.currentTarget.dataset.id}`)
+    .then(resp => resp.json())
+    .then(project => {
+        let main = document.getElementById("main")
+    
+        let html = `
+        <form>
+        <label>Project Name:</label>
+        <p>${project.projectName}</p></br>
+        <label>Project Street:</label>
+        <p>${project.projectStreet}</p></br>
+        <label>Project City:</label>
+        <p>${project.projectCity}</p></br>
+        <label>Project Country:</label>
+        <p>"${project.projectCountry}</p></br>
+        <label>Budget:</label>
+        <p>${project.projectBudget}</p></br>
+        <label>Begin Date:</label>
+        <p>${project.projectBeginDate}</p></br>
+        <label>End Date:</label>
+        <p>${project.projectEndDate}</p></br>
+        <label>Project Type:</label>
+        <p>${project.projectType}</p></br>
+        <label>Project Information:</label>
+        <p>${project.projectInformation}</p></br>
+        <label>Months Estimated:</label>
+        <p>${project.monthsEstimated}</p></br>
+        <label>Months Current:</label>
+        <p>${project.monthsCurrent}</p></br>
+        <label>Months Overdue:</label>
+        <p>${project.monthsOverDue}</p></br>
+        <label>Staff Total:</label>
+        <p>${project.projectStaff}</p></br>
+        <label>Contractor ID:</label>
+        <p>${project.contractor_id}</p></br>
+        <label>Complete:</label>
+        <p>${project.projectCompleted}</p></br>
+        `
+        main.innerHTML = html
+    })
+        
+}
 
 function assignProject(e){
     //clearForm();
@@ -160,7 +210,7 @@ function editProject(e){
         let main = document.getElementById("main-form")
     
         let html = `
-        <form">
+        <form>
         <label>Project Name:</label>
         <input type="text" id="Project Name" value="${project.projectName}"></br>
         <label>Project Street:</label>
@@ -274,7 +324,7 @@ function showContractors(){
             newContract.forEach( assignProjectButton => {
                 assignProjectButton.addEventListener("click", (e) => {
                     e.preventDefault()
-                    console.log(e.currentTarget.dataset.id)
+                    //console.log(e.currentTarget.dataset.id)
                     assignProject(e)
                 })
         })
@@ -472,6 +522,14 @@ function contractorProjects(e){
         `).join(''); 
 
     })
+
+    let individualContracts = document.querySelectorAll("a")
+            individualContracts.forEach( project => {
+                project.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    individualProject(e)
+            })
+    }) 
 }
 
 
