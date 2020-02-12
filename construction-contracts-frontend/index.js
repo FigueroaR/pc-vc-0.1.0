@@ -23,7 +23,7 @@ function headerEventListeners(){
     let displayContractForm = document.querySelector("button.displayContractorForm")
         displayContractForm.addEventListener("click", (e) => {
             e.preventDefault();
-            console.log("e",e )
+            //console.log("e",e )
             displayContractorForms(e);
         })
 
@@ -61,10 +61,11 @@ function allProjects(){
             deleteproject.forEach( deleteButton => {
                 deleteButton.addEventListener("click", (e) => {
                     e.preventDefault();
-                    console.log(e.currentTarget.dataset.id)
+                    //console.log(e.currentTarget.dataset.id)
                     removeProject(e)
             })
         })
+
     })
 }
 
@@ -281,9 +282,8 @@ function showContractors(){
         let edit = document.querySelectorAll("button.edit")
             edit.forEach( editButton => {
                 editButton.addEventListener("click", (e) => {
-                    console.log(e.currentTarget.dataset.id)
+                    //console.log(e.currentTarget.dataset.id)
                     editContractor(e)
-                    
                 })
         })
         
@@ -291,10 +291,18 @@ function showContractors(){
             deleteContractor.forEach( deleteButton => {
                 deleteButton.addEventListener("click", (e) => {
                     e.preventDefault();
-                    console.log(e.currentTarget.dataset.id)
+                    //console.log(e.currentTarget.dataset.id)
                     removeContractor(e)
             })
         })
+
+        let projectsByContractor = document.querySelectorAll("a")
+            projectsByContractor.forEach(contractor => {
+                contractor.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    contractorProjects(e.currentTarget.dataset.id)
+                })
+        }) 
     })  
 }
 
@@ -441,8 +449,35 @@ function removeContractor(e){
     .then(showContractors);
 }
 
+
+/////////contractor-projecs///////////
+function contractorProjects(e){
+    //console.log(e.currentTarget.dataset.id)
+    document.getElementById("main").innerHTML = ""
+    clearForm();
+    let main = document.getElementById("main")
+    fetch(BASE_URL + "/contracts")
+    .then(resp => resp.json())
+    .then(projects => {
+        let projectsFiltered = projects.filter( project => {
+            let projectcontractorid = project.contractor_id.toString()
+            let contractorid = e
+            return projectcontractorid.match(contractorid)
+        })
+        main.innerHTML += projectsFiltered.map( project =>  `
+        <li><a href="#" data-id="${project.id}">${project.projectName}</a> 
+        <button data-id=${project.id} class="deleteThisContract" >Delete</button>
+        <button data-id=${project.id} class="editThisContract" >Edit</button>
+        </li>
+        `).join(''); 
+
+    })
+}
+
+
+
 ///////Clear Forum///////
 function clearForm(){
     let main = document.getElementById("main-form")
     main.innerHTML = ""
- }
+}
