@@ -72,7 +72,7 @@ function contractorProjects(e){
                 deleteButton.addEventListener("click", (e) => {
                     e.preventDefault();
                     //console.log(e.currentTarget.dataset.id)
-                    removeProject(e.currentTarget.dataset.id)
+                    removeProject(e)
             })
         })
             

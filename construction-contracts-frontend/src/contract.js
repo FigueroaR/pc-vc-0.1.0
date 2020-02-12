@@ -62,7 +62,7 @@ function allProjects(){
                 deleteButton.addEventListener("click", (e) => {
                     e.preventDefault();
                     //console.log(e.currentTarget.dataset.id)
-                    removeProject(e.currentTarget.dataset.id)
+                    removeProject(e)
                 })
             })
 
@@ -297,16 +297,16 @@ function updateContract(e){
     
 }
 
-function removeProject(id){
+function removeProject(e){
     clearForm();
-    fetch(BASE_URL + `/contracts/${id}`, {
+    fetch(BASE_URL + `/contracts/${e.currentTarget.dataset.id}`, {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         }
     })
-    allProjects();
+    .then( e.currentTarget.parentElement.remove())
 }
 
 
