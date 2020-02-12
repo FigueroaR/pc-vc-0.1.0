@@ -171,9 +171,9 @@ function editProject(e){
         <label>Budget:</label>
         <input type="number" id="Budget" value="${project.projectBudget}"></br>
         <label>Begin Date:</label>
-        <input type="date" id="Begin Date" value="${project.projectBeginDate}"></br>
+        <input type="date" id="Begin Date" value="${project.projectBeginDate.split("T")[0]}"></br>
         <label>End Date:</label>
-        <input type="date" id="End Date" value="${project.projectEndDate}"></br>
+        <input type="date" id="End Date" value="${project.projectEndDate.split("T")[0]}"></br>
         <label>Project Type:</label>
         <input type="text" id="Project Type" value="${project.projectType}"></br>
         <label>Project Information:</label>
