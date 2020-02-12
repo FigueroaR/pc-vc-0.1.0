@@ -166,27 +166,29 @@ function assignProject(e){
     let executeContractor = document.querySelector("form.createProjectContract")
     executeContractor.addEventListener("submit", createContract)
 }
+
 function createContract(){
-    contract = {
-        projectName: document.getElementById("Project Name").value,
-        projectStreet: document.getElementById("Project Street").value,
-        projectCity: document.getElementById("Project City").value, 
-        projectCountry: document.getElementById("Project Country").value,
-        projectBudget: document.getElementById("Budget").value,
-        projectBeginDate: document.getElementById("Begin Date").value, 
-        projectEndDate: document.getElementById("End Date").value, 
-        projectType: document.getElementById("Project Type").value, 
-        projectInformation: document.getElementById("Project Information").value, 
-        projectStaff: document.getElementById("Staff Total").value,
-        projectCompleted: document.getElementById("Project Completed").checked,
-        monthsEstimated: document.getElementById("Months Estimated").value, 
-        monthsCurrent: document.getElementById("Months Current").value, 
-        monthsOverDue: document.getElementById("Months Overdue").value,
-        contractor_id: document.getElementById("contractorID").value
-    }
+    let newContract = new Contract(
+    document.getElementById("Project Name").value , 
+    document.getElementById("Project Street").value, 
+    document.getElementById("Project City").value, 
+    document.getElementById("Project Country").value,
+    document.getElementById("Budget").value, 
+    document.getElementById("Begin Date").value, 
+    document.getElementById("End Date").value, 
+    document.getElementById("Project Type").value,
+    document.getElementById("Project Information").value, 
+    document.getElementById("Staff Total").value, 
+    document.getElementById("Project Completed").checked, 
+    document.getElementById("Months Estimated").value, 
+    document.getElementById("Months Current").value, 
+    document.getElementById("Months Overdue").value, 
+    document.getElementById("contractorID").value
+    )
+    
     fetch("http://localhost:3000/contracts", {
         method: "POST",
-        body: JSON.stringify(contract),
+        body: JSON.stringify(newContract),
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -393,15 +395,6 @@ function createContractor(){
 
     let newContractor = new Contractor(document.getElementById("First Name").value, document.getElementById("Last Name").value, document.getElementById("Phone Num").value, document.getElementById("email").value, document.getElementById("Company Name").value, document.getElementById("City").value, document.getElementById("Country").value)
 
-    // user = {
-    //     firstName: document.getElementById("First Name").value,
-    //     lastName: document.getElementById("Last Name").value,
-    //     phoneNum: document.getElementById("Phone Num").value,
-    //     email: document.getElementById("email").value,
-    //     companyName: document.getElementById("Company Name").value,
-    //     city: document.getElementById("City").value,
-    //     country: document.getElementById("Country").value
-    // }
     fetch(BASE_URL+'/contractors',{
         method: "POST",
         body: JSON.stringify(newContractor),
