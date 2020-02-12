@@ -51,8 +51,8 @@ function allProjects(){
             editproject.forEach( editContractButton => {
                 editContractButton.addEventListener("click", (e) => {
                     e.preventDefault()
-                    console.log(e.currentTarget.dataset.id)
-                    editProject(e)
+                    //console.log(e.currentTarget.dataset.id)
+                    editProject(e.currentTarget.dataset.id)
                     
                 })
         })
@@ -62,7 +62,7 @@ function allProjects(){
                 deleteButton.addEventListener("click", (e) => {
                     e.preventDefault();
                     //console.log(e.currentTarget.dataset.id)
-                    removeProject(e)
+                    removeProject(e.currentTarget.dataset.id)
             })
         })
 
@@ -70,15 +70,15 @@ function allProjects(){
             individualContracts.forEach( project => {
                 project.addEventListener("click", (e) => {
                     e.preventDefault();
-                    individualProject(e)
+                    individualProject(e.currentTarget.dataset.id)
                 })
         }) 
     })
 }
 
-function individualProject(e){
+function individualProject(id){
     clearForm();
-    fetch(BASE_URL + `/contracts/${e.currentTarget.dataset.id}`)
+    fetch(BASE_URL + `/contracts/${id}`)
     .then(resp => resp.json())
     .then(project => {
         let main = document.getElementById("main")
@@ -92,7 +92,7 @@ function individualProject(e){
         <label>Project City:</label>
         <p>${project.projectCity}</p></br>
         <label>Project Country:</label>
-        <p>"${project.projectCountry}</p></br>
+        <p>${project.projectCountry}</p></br>
         <label>Budget:</label>
         <p>${project.projectBudget}</p></br>
         <label>Begin Date:</label>
@@ -203,8 +203,8 @@ function createContract(){
     
 }
 
-function editProject(e){
-    fetch(BASE_URL + `/contracts/${e.currentTarget.dataset.id}`)
+function editProject(id){
+    fetch(BASE_URL + `/contracts/${id}`)
     .then(resp => resp.json())
     .then(project => {
         let main = document.getElementById("main-form")
@@ -290,9 +290,9 @@ function updateContract(e){
     clearForm()
 }
 
-function removeProject(e){
+function removeProject(id){
     
-    fetch(BASE_URL + `/contracts/${e.currentTarget.dataset.id}`, {
+    fetch(BASE_URL + `/contracts/${id}`, {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',
@@ -521,15 +521,33 @@ function contractorProjects(e){
         </li>
         `).join(''); 
 
-    })
-
-    let individualContracts = document.querySelectorAll("a")
-            individualContracts.forEach( project => {
-                project.addEventListener("click", (e) => {
+        let editproject = document.querySelectorAll("button.editThisContract")
+            editproject.forEach( editContractButton => {
+                editContractButton.addEventListener("click", (e) => {
+                    e.preventDefault()
+                    //console.log(e.currentTarget.dataset.id)
+                    editProject(e.currentTarget.dataset.id)
+                    
+                })
+        })
+        
+        let deleteproject = document.querySelectorAll("button.deleteThisContract")
+            deleteproject.forEach( deleteButton => {
+                deleteButton.addEventListener("click", (e) => {
                     e.preventDefault();
-                    individualProject(e)
+                    //console.log(e.currentTarget.dataset.id)
+                    removeProject(e.currentTarget.dataset.id)
             })
-    }) 
+        })
+            
+        let individualContracts = document.querySelectorAll("a")
+        individualContracts.forEach( project => {
+            project.addEventListener("click", (e) => {
+                e.preventDefault();
+                individualProject(e.currentTarget.dataset.id)
+            })
+        }) 
+    })
 }
 
 
