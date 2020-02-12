@@ -42,6 +42,7 @@ function allProjects(){
     .then(projects => {
         main.innerHTML+= projects.map(project =>  `
         <li><a href="#" data-id="${project.id}">${project.projectName}</a> 
+        | ${project.projectCompleted ? "Completed" : "Not Completed"} |
         <button data-id=${project.id} class="deleteThisContract" >Delete</button>
         <button data-id=${project.id} class="editThisContract" >Edit</button>
         </li>
@@ -114,7 +115,7 @@ function individualProject(id){
         <label>Contractor ID:</label>
         <p>${project.contractor_id}</p></br>
         <label>Complete:</label>
-        <p>${project.projectCompleted}</p></br>
+        <p>${project.projectCompleted ? "Completed" : "Not Completed"}</p></br>
         `
         main.innerHTML = html
     })
@@ -160,7 +161,7 @@ function assignProject(e){
     <input type ="checkbox" id="Project Completed"></br>
     <input type ="submit" value="Create Project Contract">
     </form>
-`
+    `
     main.innerHTML = html
     let executeContractor = document.querySelector("form.createProjectContract")
     executeContractor.addEventListener("submit", createContract)
@@ -177,7 +178,7 @@ function createContract(){
         projectType: document.getElementById("Project Type").value, 
         projectInformation: document.getElementById("Project Information").value, 
         projectStaff: document.getElementById("Staff Total").value,
-        projectCompleted: document.getElementById("Project Completed").value,
+        projectCompleted: document.getElementById("Project Completed").checked,
         monthsEstimated: document.getElementById("Months Estimated").value, 
         monthsCurrent: document.getElementById("Months Current").value, 
         monthsOverDue: document.getElementById("Months Overdue").value,
@@ -195,6 +196,7 @@ function createContract(){
     .then(projects => {
         main.innerHTML+= projects.map(project =>  `
         <li><a href="#" data-id="${project.id}">${project.projectName}</a> 
+        ${project.projectCompleted ? "Completed" : "Not Completed"}
         <button data-id=${project.id} class="delete" onclick="removeProject(${project.id})"; return false;>Delete</button>
         <button data-id=${project.id} class="edit" onclick="editProject(${project.id})"; return false;>Edit</button>
         </li>
@@ -264,7 +266,7 @@ function updateContract(e){
         projectType: document.getElementById("Project Type").value, 
         projectInformation: document.getElementById("Project Information").value, 
         projectStaff: document.getElementById("Staff Total").value,
-        projectCompleted: document.getElementById("Project Completed").value,
+        projectCompleted: document.getElementById("Project Completed").checked,
         monthsEstimated: document.getElementById("Months Estimated").value, 
         monthsCurrent: document.getElementById("Months Current").value, 
         monthsOverDue: document.getElementById("Months Overdue").value,
@@ -509,13 +511,14 @@ function contractorProjects(e){
     fetch(BASE_URL + "/contracts")
     .then(resp => resp.json())
     .then(projects => {
-        let projectsFiltered = projects.filter( project => {
-            let projectcontractorid = project.contractor_id.toString()
-            let contractorid = e
-            return projectcontractorid.match(contractorid)
-        })
-        main.innerHTML += projectsFiltered.map( project =>  `
+    let projectsFiltered = projects.filter( project => {
+    let projectcontractorid = project.contractor_id.toString()
+    let contractorid = e
+    return projectcontractorid.match(contractorid)
+    })
+    main.innerHTML += projectsFiltered.map( project =>  `
         <li><a href="#" data-id="${project.id}">${project.projectName}</a> 
+        | ${project.projectCompleted ? "Completed" : "Not Completed"} |
         <button data-id=${project.id} class="deleteThisContract" >Delete</button>
         <button data-id=${project.id} class="editThisContract" >Edit</button>
         </li>
