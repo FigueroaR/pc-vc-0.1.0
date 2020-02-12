@@ -390,18 +390,21 @@ function displayContractorForms(e) {
 function createContractor(){
 
     let main = document.getElementById("main")
-    user = {
-        firstName: document.getElementById("First Name").value,
-        lastName: document.getElementById("Last Name").value,
-        phoneNum: document.getElementById("Phone Num").value,
-        email: document.getElementById("email").value,
-        companyName: document.getElementById("Company Name").value,
-        city: document.getElementById("City").value,
-        country: document.getElementById("Country").value
-    }
+
+    let newContractor = new Contractor(document.getElementById("First Name").value, document.getElementById("Last Name").value, document.getElementById("Phone Num").value, document.getElementById("email").value, document.getElementById("Company Name").value, document.getElementById("City").value, document.getElementById("Country").value)
+
+    // user = {
+    //     firstName: document.getElementById("First Name").value,
+    //     lastName: document.getElementById("Last Name").value,
+    //     phoneNum: document.getElementById("Phone Num").value,
+    //     email: document.getElementById("email").value,
+    //     companyName: document.getElementById("Company Name").value,
+    //     city: document.getElementById("City").value,
+    //     country: document.getElementById("Country").value
+    // }
     fetch(BASE_URL+'/contractors',{
         method: "POST",
-        body: JSON.stringify(user),
+        body: JSON.stringify(newContractor),
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'

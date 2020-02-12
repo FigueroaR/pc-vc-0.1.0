@@ -1,4 +1,4 @@
-class contractor{
+class Contractor{
     constructor(firstName, lastName, phoneNum, email, companyName,
         city, country){
             this.firstName = firstName,
@@ -9,10 +9,4 @@ class contractor{
             this.city = city,
             this.country = country
     }
-
-    makeContractor( ){
-
-    }
-
-    
 }
