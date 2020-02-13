@@ -21,18 +21,18 @@ function showContractors(){
     .then(resp => resp.json())
     .then(contractors => {
         main.innerHTML+= contractors.map( contractor =>  `
-        <li><a href="#" data-id="${contractor.id}">${contractor.lastName}</a> 
+        <li><a href="#" data-lastname="${contractor.lastName}" data-id="${contractor.id}">${contractor.lastName}</a> 
         <button data-id=${contractor.id} class="delete" >Delete</button>
         <button data-id=${contractor.id} class="edit" >Edit</button>
-        <button data-id=${contractor.id} class="contract" >Assign project</button>
+        <button data-lastname=${contractor.lastName} data-id=${contractor.id} class="contract">Assign project</button>
         `).join('');
 
         let newContract = document.querySelectorAll("button.contract")
             newContract.forEach( assignProjectButton => {
                 assignProjectButton.addEventListener("click", (e) => {
-                    e.preventDefault()
                     //console.log(e.currentTarget.dataset.id)
                     assignProject(e)
+                    e.preventDefault()
                 })
         })
 

@@ -13,7 +13,8 @@ class Contract {
         monthsEstimated, 
         monthsCurrent, 
         monthsOverDue, 
-        contractor_id){
+        contractor_id,
+        contractor_lastName){
             this.projectName = projectName,
             this.projectStreet = projectStreet,
             this.projectCity = projectCity,
@@ -28,7 +29,8 @@ class Contract {
             this.monthsEstimated = monthsEstimated,
             this.monthsCurrent = monthsCurrent,
             this.monthsOverDue = monthsOverDue,
-            this.contractor_id = contractor_id
+            this.contractor_id = contractor_id,
+            this.contractor_lastName = contractor_lastName
     }
 }
 
@@ -41,7 +43,7 @@ function allProjects(){
     .then(resp => resp.json())
     .then(projects => {
         main.innerHTML+= projects.map(project =>  `
-        <li><a href="#" data-id="${project.id}">${project.projectName}</a> 
+        <li> Project: <a href="#" data-id="${project.id}"> ${project.projectName}</a> 
         | ${project.projectCompleted ? "Completed" : "Not Completed"} |
         <button data-id=${project.id} class="deleteThisContract" >Delete</button>
         <button data-id=${project.id} class="editThisContract" >Edit</button>
@@ -87,36 +89,37 @@ function individualProject(id){
     .then(project => {
         
         let html = `
-        <form>
-        <label>Project Name:</label>
+        <h3>Project Name:</h3>
         <p>${project.projectName}</p></br>
-        <label>Project Street:</label>
+        <h3>Project Street:</h3>
         <p>${project.projectStreet}</p></br>
-        <label>Project City:</label>
+        <h3>Project City:</h3>
         <p>${project.projectCity}</p></br>
-        <label>Project Country:</label>
+        <h3>Project Country:</h3>
         <p>${project.projectCountry}</p></br>
-        <label>Budget:</label>
+        <h3>Budget:</h3>
         <p>${project.projectBudget}</p></br>
-        <label>Begin Date:</label>
+        <h3>Begin Date:</h3>
         <p>${project.projectBeginDate}</p></br>
-        <label>End Date:</label>
+        <h3>End Date:</h3>
         <p>${project.projectEndDate}</p></br>
-        <label>Project Type:</label>
+        <h3>Project Type:</h3>
         <p>${project.projectType}</p></br>
-        <label>Project Information:</label>
+        <h3>Project Information:</h3>
         <p>${project.projectInformation}</p></br>
-        <label>Months Estimated:</label>
+        <h3>Months Estimated:</h3>
         <p>${project.monthsEstimated}</p></br>
-        <label>Months Current:</label>
+        <h3>Months Current:</h3>
         <p>${project.monthsCurrent}</p></br>
-        <label>Months Overdue:</label>
+        <h3>Months Overdue:</h3>
         <p>${project.monthsOverDue}</p></br>
-        <label>Staff Total:</label>
+        <h3>Staff Total:</h3>
         <p>${project.projectStaff}</p></br>
-        <label>Contractor ID:</label>
+        <h3>Contractor ID:</h3>
         <p>${project.contractor_id}</p></br>
-        <label>Complete:</label>
+        <h3>Contractor lastName:</h3>
+        <p>${project.contractor_lastName}</p></br>
+        <h3>Complete:</h3>
         <p>${project.projectCompleted ? "Completed" : "Not Completed"}</p></br>
         `
         main.innerHTML = html
@@ -126,7 +129,7 @@ function individualProject(id){
 
 function assignProject(e){
     //clearForm();
-    e.preventDefault();
+    
     let main = document.getElementById("main-form")
     let html = `
     <form class="createProjectContract">
@@ -156,9 +159,10 @@ function assignProject(e){
     <input type="number" id="Months Overdue"></br>
     <label>Staff Total:</label>
     <input type="number" id="Staff Total"></br>
-    <label>Contractor has hidden field Id:</label>
+    
     <input type="hidden" id="contractorID" value=${e.currentTarget.dataset.id} data-id=${e.currentTarget.dataset.id}> </br>
     
+    <input type="hidden" id="contractorlastName" value=${e.currentTarget.dataset.lastname} data-id=${e.currentTarget.dataset.lastname}> </br>
     <label>Complete:</label>
     <input type ="checkbox" id="Project Completed"></br>
     <input type ="submit" value="Create Project Contract" class="createProjectContract">
@@ -191,7 +195,8 @@ function createContract(e){
     document.getElementById("Months Estimated").value, 
     document.getElementById("Months Current").value, 
     document.getElementById("Months Overdue").value, 
-    document.getElementById("contractorID").value
+    document.getElementById("contractorID").value,
+    document.getElementById("contractorlastName").value
     )
     
     fetch("http://localhost:3000/contracts", {
@@ -205,14 +210,16 @@ function createContract(e){
     .then(resp => resp.json())
     .then(project => {
         main.innerHTML +=  `
-        <li><a href="#" data-id="${project.id}">${project.projectName}</a> 
-        ${project.projectCompleted ? "Completed" : "Not Completed"}
-        <button data-id=${project.id} class="delete" onclick="removeProject(${project.id})"; return false;>Delete</button>
-        <button data-id=${project.id} class="edit" onclick="editProject(${project.id})"; return false;>Edit</button>
+        <li> Project: <a href="#" data-id="${project.id}"> ${project.projectName}</a> 
+        | ${project.projectCompleted ? "Completed" : "Not Completed"} |
+        <button data-id=${project.id} class="deleteThisContract" >Delete</button>
+        <button data-id=${project.id} class="editThisContract" >Edit</button>
         </li>
         `
     })
     clearForm();
+    document.getElementById("main").innerHTML = ""
+    
 }
 
 function editProject(id){

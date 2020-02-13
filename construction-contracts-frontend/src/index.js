@@ -21,17 +21,11 @@ function headerEventListeners(){
         contractors.addEventListener("click",showContractors)
 
     let displayContractForm = document.querySelector("button.displayContractorForm")
-        displayContractForm.addEventListener("click", (e) => {
-            e.preventDefault();
-            //console.log("e",e )
-            displayContractorForms(e);
-        })
+        displayContractForm.addEventListener("click", displayContractorForms)
 
     let projects = document.querySelector("button.allProject")
         projects.addEventListener("click", allProjects)
 }
-
-
 
 
 
@@ -50,7 +44,7 @@ function contractorProjects(e){
         return projectcontractorid.match(contractorid)
     })
     main.innerHTML += projectsFiltered.map( project =>  `
-        <li><a href="#" data-id="${project.id}">${project.projectName}</a> 
+        <li> Project: <a href="#" data-id="${project.id}"> ${project.projectName}</a> 
         | ${project.projectCompleted ? "Completed" : "Not Completed"} |
         <button data-id=${project.id} class="deleteThisContract" >Delete</button>
         <button data-id=${project.id} class="editThisContract" >Edit</button>
