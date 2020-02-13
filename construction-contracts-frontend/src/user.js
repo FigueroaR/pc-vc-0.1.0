@@ -40,17 +40,17 @@ function showContractors(){
             edit.forEach( editButton => {
                 editButton.addEventListener("click", (e) => {
                     //console.log(e.currentTarget.dataset.id)
-                    //e.preventDefault()
-                    editContractor(e)
+                    editContractor(e.currentTarget.dataset.id)
+                    e.preventDefault()
                 })
         })
         
         let deleteContractor = document.querySelectorAll("button.delete")
             deleteContractor.forEach( deleteButton => {
                 deleteButton.addEventListener("click", (e) => {
-                    e.preventDefault();
                     //console.log(e.currentTarget.dataset.id)
                     removeContractor(e)
+                    e.preventDefault();
             })
         })
 
@@ -65,7 +65,7 @@ function showContractors(){
 }
 
 function displayContractorForms(e) {
-    clearForm();
+    
     e.preventDefault();
     let main = document.getElementById("main-form")
     
@@ -121,15 +121,16 @@ function createContractor(){
         <button data-id=${contractor.id} class="contract">Assign project</button>
         </li>
         `
+        clearForm();
+        document.getElementById('main').innHTML = ""
+        showContractors();
     })
+    
 }
 
 
-function editContractor(e){
-    //clearForm();
-    e.preventDefault()
-    console.log(e)
-    fetch(`http://localhost:3000/contractors/${e.currentTarget.dataset.id}`) 
+function editContractor(id){    
+    fetch(`http://localhost:3000/contractors/${id}`) 
     .then(resp => resp.json())
     .then(contractor => {
         let main = document.getElementById("main-form")
@@ -153,16 +154,15 @@ function editContractor(e){
             <input type ="submit" class="editContractor" value="Edit Contractor" data-id="${contractor.id}">
             `
             main.innerHTML = html
-            e.preventDefault()
 
             let editThisContractor = document.querySelector("input.editContractor")
             editThisContractor.addEventListener("click", (e) => {
-                updateContractor(e) 
+                updateContractor(e.currentTarget.dataset.id) 
             })
     })
 }
 
-function updateContractor(e){
+function updateContractor(id){
     let newContractor = new Contractor(document.getElementById("First Name").value, 
     document.getElementById("Last Name").value, 
     document.getElementById("Phone Num").value, 
@@ -171,7 +171,7 @@ function updateContractor(e){
     document.getElementById("City").value, 
     document.getElementById("Country").value)
 
-    fetch(BASE_URL+`/contractors/${e.currentTarget.dataset.id}`,{
+    fetch(BASE_URL+`/contractors/${id}`,{
         method: "PATCH",
         body: JSON.stringify(newContractor),
         headers: {
@@ -181,7 +181,8 @@ function updateContractor(e){
     })
     .then(resp => resp.json())
     .then( contractor => {
-        document.getElementsByTagName(`a[${e.currentTarget.dataset.id}]`).innerHTML = `
+        
+        document.getElementsByTagName(`a[${id}]`).innerHTML = `
         <li><a href="#" data-id="${contractor.id}">${contractor.lastName}</a> 
         <button data-id=${contractor.id} class="delete"; return false;>Delete</button>
         <button data-id=${contractor.id} class="edit" ; return false;>Edit</button>
@@ -189,6 +190,7 @@ function updateContractor(e){
         </li>
         `
         clearForm();
+        document.getElementById("main").innerHTML = ""
         showContractors();
     })
 }
@@ -205,6 +207,4 @@ function removeContractor(e){
     })
     .then( e.currentTarget.parentElement.remove())
 
-
-    
 }
