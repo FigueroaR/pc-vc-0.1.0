@@ -263,6 +263,7 @@ function editProject(id){
         <label>Complete:</label>
         <input type ="checkbox" id="Project Completed" value="${project.projectCompleted}"></br>
         <input type ="submit" value="Edit Project Contract" class="editProjectContract"data-id="${project.id}">
+        </form>
         `
         main.innerHTML = html;
         let editThisContractor = document.querySelector("input.editProjectContract")

@@ -70,7 +70,7 @@ function displayContractorForms(e) {
     let main = document.getElementById("main-form")
     
     let html = `
-        <form class="createContractor">
+        <form >
         <label>First Name:</label>
         <input type ="text" id="First Name"></br>
         <label>Last Name:</label>
@@ -85,12 +85,15 @@ function displayContractorForms(e) {
         <input type ="text" id="City"></br>
         <label>Country:</label>
         <input type ="text" id="Country"></br>
-        <input type ="submit" value="Create Contractor">
+        <input type ="submit" value="Create Contractor" class="createContractor">
         </form>
     `
     main.innerHTML = html
-    let executeContractor = document.querySelector("form.createContractor")
-    executeContractor.addEventListener("submit", createContractor)
+    let executeContractor = document.querySelector("input.createContractor")
+    executeContractor.addEventListener("click", (e) => {
+        createContractor();
+        e.preventDefault()        
+    })
 
 }
 function createContractor(){
@@ -122,8 +125,6 @@ function createContractor(){
         </li>
         `
         clearForm();
-        document.getElementById('main').innHTML = ""
-        showContractors();
     })
     
 }
