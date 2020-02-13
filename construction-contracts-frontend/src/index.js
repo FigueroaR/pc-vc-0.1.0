@@ -39,7 +39,7 @@ function headerEventListeners(){
 function contractorProjects(e){
     //console.log(e.currentTarget.dataset.id)
     clearForm();
-
+    document.getElementById("main").innerHTML = ""
     let main = document.getElementById("main")
     fetch(BASE_URL + "/contracts")
     .then(resp => resp.json())
@@ -60,21 +60,21 @@ function contractorProjects(e){
         let editproject = document.querySelectorAll("button.editThisContract")
             editproject.forEach( editContractButton => {
                 editContractButton.addEventListener("click", (e) => {
-                    e.preventDefault()
                     //console.log(e.currentTarget.dataset.id)
+                    e.preventDefault()
                     editProject(e.currentTarget.dataset.id)
                     
+                    
                 })
-        })
+            })
         
         let deleteproject = document.querySelectorAll("button.deleteThisContract")
             deleteproject.forEach( deleteButton => {
                 deleteButton.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    //console.log(e.currentTarget.dataset.id)
                     removeProject(e)
+                    e.preventDefault();
+                })
             })
-        })
             
         let individualContracts = document.querySelectorAll("a")
         individualContracts.forEach( project => {
@@ -92,4 +92,5 @@ function contractorProjects(e){
 function clearForm(){
     let form = document.getElementById("main-form")
     form.innerHTML = ""
+
 }

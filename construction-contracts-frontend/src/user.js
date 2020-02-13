@@ -27,32 +27,32 @@ function showContractors(){
         <button data-id=${contractor.id} class="contract" >Assign project</button>
         `).join('');
 
-        let editproject = document.querySelectorAll("button.editThisContract")
-            editproject.forEach( editContractButton => {
-                editContractButton.addEventListener("click", (e) => {
-                    //console.log(e.currentTarget.dataset.id)
+        let newContract = document.querySelectorAll("button.contract")
+            newContract.forEach( assignProjectButton => {
+                assignProjectButton.addEventListener("click", (e) => {
                     e.preventDefault()
-                    editProject(e.currentTarget.dataset.id)
-                    
-                    
+                    //console.log(e.currentTarget.dataset.id)
+                    assignProject(e)
                 })
-            })
-        
-        let deleteproject = document.querySelectorAll("button.deleteThisContract")
-            deleteproject.forEach( deleteButton => {
-                deleteButton.addEventListener("click", (e) => {
-                    removeProject(e)
-                    e.preventDefault();
-                })
-            })
+        })
 
-        let individualContracts = document.querySelectorAll("a")
-            individualContracts.forEach( project => {
-                project.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    individualProject(e.currentTarget.dataset.id)
+        let edit = document.querySelectorAll("button.edit")
+            edit.forEach( editButton => {
+                editButton.addEventListener("click", (e) => {
+                    //console.log(e.currentTarget.dataset.id)
+                    //e.preventDefault()
+                    editContractor(e)
                 })
-            }) 
+        })
+        
+        let deleteContractor = document.querySelectorAll("button.delete")
+            deleteContractor.forEach( deleteButton => {
+                deleteButton.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    //console.log(e.currentTarget.dataset.id)
+                    removeContractor(e)
+            })
+        })
 
         let projectsByContractor = document.querySelectorAll("a")
             projectsByContractor.forEach(contractor => {

@@ -78,12 +78,14 @@ function allProjects(){
 }
 
 function individualProject(id){
+    document.getElementById("main").innerHTML = ""
     clearForm();
+    let main = document.getElementById("main")
+    
     fetch(BASE_URL + `/contracts/${id}`)
     .then(resp => resp.json())
     .then(project => {
-        let main = document.getElementById("main")
-    
+        
         let html = `
         <form>
         <label>Project Name:</label>
