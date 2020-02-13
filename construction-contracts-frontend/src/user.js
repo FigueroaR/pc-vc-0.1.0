@@ -24,7 +24,7 @@ function showContractors(){
         <li><a href="#" data-lastname="${contractor.lastName}" data-id="${contractor.id}">${contractor.lastName}</a> 
         <button data-id=${contractor.id} class="delete" >Delete</button>
         <button data-id=${contractor.id} class="edit" >Edit</button>
-        <button data-lastname=${contractor.lastName} data-id=${contractor.id} class="contract">Assign project</button>
+        <button data-lastname=${contractor.lastName} data-id=${contractor.id} class="contract">Assign project</button></li>
         `).join('');
 
         let newContract = document.querySelectorAll("button.contract")
@@ -153,6 +153,7 @@ function editContractor(id){
             <label>Country:</label>
             <input type ="text" id="Country" value="${contractor.country}"></br>
             <input type ="submit" class="editContractor" value="Edit Contractor" data-id="${contractor.id}">
+            </form>
             `
             main.innerHTML = html
 
