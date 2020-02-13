@@ -34,9 +34,9 @@ class Contract {
 
 ///////////Project//////////////////
 function allProjects(){
-    
+    document.getElementById("main").innerHTML = ""
     clearForm();
-    let main = document.getElementById("main-form")
+    let main = document.getElementById("main")
     fetch("http://localhost:3000/contracts")
     .then(resp => resp.json())
     .then(projects => {
@@ -51,18 +51,19 @@ function allProjects(){
         let editproject = document.querySelectorAll("button.editThisContract")
             editproject.forEach( editContractButton => {
                 editContractButton.addEventListener("click", (e) => {
-                    e.preventDefault()
                     //console.log(e.currentTarget.dataset.id)
+                    e.preventDefault()
                     editProject(e.currentTarget.dataset.id)
+                    
+                    
                 })
             })
         
         let deleteproject = document.querySelectorAll("button.deleteThisContract")
             deleteproject.forEach( deleteButton => {
                 deleteButton.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    //console.log(e.currentTarget.dataset.id)
                     removeProject(e)
+                    e.preventDefault();
                 })
             })
 
@@ -165,8 +166,9 @@ function assignProject(e){
     let executeContractor = document.querySelector("input.createProjectContract")
     executeContractor.addEventListener("click", (e) => {
         createContract(e) 
+        allProjects()
         e.preventDefault()
-        allProjects
+        
     } )
     
 }
@@ -200,7 +202,7 @@ function createContract(e){
     })
     .then(resp => resp.json())
     .then(project => {
-        main.innerHTML+= `
+        main.innerHTML +=  `
         <li><a href="#" data-id="${project.id}">${project.projectName}</a> 
         ${project.projectCompleted ? "Completed" : "Not Completed"}
         <button data-id=${project.id} class="delete" onclick="removeProject(${project.id})"; return false;>Delete</button>
@@ -297,13 +299,15 @@ function updateContract(e){
         </li>
         `
         clearForm();
+        document.getElementById("main").innerHTML = ""
         allProjects();
     })
     
 }
 
 function removeProject(e){
-    fetch(BASE_URL + `/contracts/${e.currentTarget.dataset.id}`, {
+    let id = e.currentTarget.dataset.id
+    fetch(BASE_URL + `/contracts/${id}`, {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',

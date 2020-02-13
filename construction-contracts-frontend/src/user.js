@@ -17,11 +17,10 @@ function showContractors(){
     clearForm();
     document.getElementById("main").innerHTML = ""
     let main = document.getElementById("main")
-    main.innerHTML = "<h2>Contractors</h2>"
     fetch("http://localhost:3000/contractors")
     .then(resp => resp.json())
     .then(contractors => {
-        main.innerHTML+= contractors.map(contractor =>  `
+        main.innerHTML+= contractors.map( contractor =>  `
         <li><a href="#" data-id="${contractor.id}">${contractor.lastName}</a> 
         <button data-id=${contractor.id} class="delete" >Delete</button>
         <button data-id=${contractor.id} class="edit" >Edit</button>

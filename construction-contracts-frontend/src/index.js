@@ -92,7 +92,4 @@ function contractorProjects(e){
 function clearForm(){
     let form = document.getElementById("main-form")
     form.innerHTML = ""
-
-    let main = document.getElementById("main")
-    main.innerHTML = ""
 }
