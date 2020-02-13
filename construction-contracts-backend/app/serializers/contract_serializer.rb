@@ -14,5 +14,6 @@ class ContractSerializer < ActiveModel::Serializer
   :monthsEstimated, 
   :monthsCurrent, 
   :monthsOverDue,
-  :contractor_id
+  :contractor_id,
+  :contractor_lastName
 end
