@@ -42,7 +42,7 @@ function allProjects(){
     fetch("http://localhost:3000/contracts")
     .then(resp => resp.json())
     .then(projects => {
-        main.innerHTML+= projects.map(project =>  `
+        main.innerHTML+= projects.map(project =>  ` 
         <li> Project: <a href="#" data-id="${project.id}"> ${project.projectName}</a> 
         | ${project.projectCompleted ? "Completed" : "Not Completed"} |
         <button data-id=${project.id} class="delete" onclick="removeProject(${project.id})"; return false;>Delete</button>
@@ -81,9 +81,9 @@ function individualProject(id){
         <h3>Budget:</h3>
         <p>${project.projectBudget}</p></br>
         <h3>Begin Date:</h3>
-        <p>${project.projectBeginDate}</p></br>
+        <p>${project.projectBeginDate.split("T")[0]}</p></br>
         <h3>End Date:</h3>
-        <p>${project.projectEndDate}</p></br>
+        <p>${project.projectEndDate.split("T")[0]}</p></br>
         <h3>Project Type:</h3>
         <p>${project.projectType}</p></br>
         <h3>Project Information:</h3>
@@ -113,7 +113,7 @@ function assignProject(e){
     
     let main = document.getElementById("main-form")
     let html = `
-    <form class="createProjectContract">
+    <form class="createProjectContract" >
     <label>Project Name:</label>
     <input type="text" id="Project Name"></br>
     <label>Project Street:</label>
@@ -140,10 +140,8 @@ function assignProject(e){
     <input type="number" id="Months Overdue"></br>
     <label>Staff Total:</label>
     <input type="number" id="Staff Total"></br>
-    
-    <input type="hidden" id="contractorID" value=${e.currentTarget.dataset.id} data-id=${e.currentTarget.dataset.id}> </br>
-    
-    <input type="hidden" id="contractorlastName" value=${e.currentTarget.dataset.lastname} data-id=${e.currentTarget.dataset.lastname}> </br>
+    <input type="hidden" id="contractorID" value=${e.currentTarget.dataset.id} data-id=${e.currentTarget.dataset.id}>
+    <input type="hidden" id="contractorlastName" value=${e.currentTarget.dataset.lastname} data-id=${e.currentTarget.dataset.lastname}>
     <label>Complete:</label>
     <input type ="checkbox" id="Project Completed"></br>
     <input type ="submit" value="Create Project Contract" class="createProjectContract">
@@ -308,8 +306,8 @@ function updateContract(id){
     
 }
 
-function removeProject(e){
-    let id = e.currentTarget.dataset.id
+function removeProject(id){
+    //let id = e.currentTarget.dataset.id
     fetch(BASE_URL + `/contracts/${id}`, {
         method: "DELETE",
         headers: {
@@ -317,7 +315,7 @@ function removeProject(e){
             'Accept': 'application/json'
         }
     })
-    .then( e.currentTarget.parentElement.remove())   
+    .then(document.querySelectorAll(`li a[data-id="${id}"]`)[0].parentElement.remove())   
 }
 
 

@@ -69,6 +69,7 @@ function displayContractorForms(e) {
         <input type ="text" id="Country"></br>
         <input type ="submit" value="Create Contractor" class="createContractor">
         </form>
+        <br><br>
     `
     main.innerHTML = html
     let executeContractor = document.querySelector("input.createContractor")
@@ -136,38 +137,24 @@ function editContractor(id){
         let main = document.getElementById("main-form")
     
         let html = `
-            <form class="form-control">
-                <div class="form-group">
-                    <label>First Name: </label>
-                    <input type ="text" id="First Name" value="${contractor.firstName}"></br>
-                </div>
-                <div class="form-group">
-                    <label>Last Name:</label>
-                    <input type ="text" id="Last Name" value="${contractor.lastName}"></br>
-                </div>
-                <div class="form-group">    
-                    <label>Phone Num:</label>
-                    <input type ="text" id="Phone Num" value="${contractor.phoneNum}"></br>
-                </div>
-                <div class="form-group">        
-                    <label>email:</label>
-                    <input type ="text" id="email" value="${contractor.email}"></br>
-                </div>
-                <div class="form-group">    
-                    <label>Company Name:</label>
-                    <input type ="text" id="Company Name" value="${contractor.companyName}"></br>
-                </div>
-                <div class="form-group">    
-                    <label>City:</label>
-                    <input type ="text" id="City"value="${contractor.city}"></br>
-                </div>
-
-                <div class="form-group">
-                    <label>Country:</label>
-                    <input type ="text" id="Country" value="${contractor.country}"></br>
-                </div>
-                    <input type ="submit" class="editContractor" value="Edit Contractor" data-id="${contractor.id}">
+            <form>
+                <label>First Name: </label>
+                <input type ="text" id="First Name" value="${contractor.firstName}"></br>
+                <label>Last Name:</label>
+                <input type ="text" id="Last Name" value="${contractor.lastName}"></br>
+                <label>Phone Num:</label>
+                <input type ="text" id="Phone Num" value="${contractor.phoneNum}"></br>
+                <label>email:</label>
+                <input type ="text" id="email" value="${contractor.email}"></br>
+                <label>Company Name:</label>
+                <input type ="text" id="Company Name" value="${contractor.companyName}"></br>   
+                <label>City:</label>
+                <input type ="text" id="City"value="${contractor.city}"></br>
+                <label>Country:</label>
+                <input type ="text" id="Country" value="${contractor.country}"></br>
+                <input type ="submit" class="editContractor" value="Edit Contractor" data-id="${contractor.id}">   
             </form>
+                <br><br>
             `
             main.innerHTML = html
 
