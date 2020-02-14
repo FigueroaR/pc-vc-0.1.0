@@ -144,12 +144,12 @@ function assignProject(e){
     <input type="hidden" id="contractorlastName" value=${e.currentTarget.dataset.lastname} data-id=${e.currentTarget.dataset.lastname}>
     <label>Complete:</label>
     <input type ="checkbox" id="Project Completed"></br>
-    <input type ="submit" value="Create Project Contract" class="createProjectContract">
+    <input type ="submit" value="Create Project" class="createProject">
     </form>
     `
     main.innerHTML = html
-    let executeContractor = document.querySelector("input.createProjectContract")
-    executeContractor.addEventListener("click", (e) => {
+    let executeProject = document.querySelector("input.createProject")
+    executeProject.addEventListener("click", (e) => {
         createProject() 
         allProjects()
         e.preventDefault()
@@ -159,7 +159,7 @@ function assignProject(e){
 }
 
 function createProject(){
-    let newContract = new Project(
+    let newproject = new Project(
     document.getElementById("Project Name").value , 
     document.getElementById("Project Street").value, 
     document.getElementById("Project City").value, 
@@ -180,7 +180,7 @@ function createProject(){
     
     fetch("http://localhost:3000/contracts", {
         method: "POST",
-        body: JSON.stringify(newContract),
+        body: JSON.stringify(newproject),
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -237,15 +237,14 @@ function editProject(id){
         <label>Staff Total:</label>
         <input type="number" id="Staff Total" value="${project.projectStaff}"></br>git 
         <input type="hidden" id="contractorID" value="${project.contractor_id}" data-id="${project.contractor_id}"> </br>
-        
         <label>Complete:</label>
         <input type ="checkbox" id="Project Completed" value="${project.projectCompleted}"></br>
-        <input type ="submit" value="Edit Project Contract" class="editProjectContract"data-id="${project.id}">
+        <input type ="submit" value="Edit Project" class="editThisProject" data-id="${project.id}">
         </form>
         `
         main.innerHTML = html;
-        let editThisContractor = document.querySelector("input.editProjectContract")
-        editThisContractor.addEventListener("click", (e) => {
+        let editThisContract = document.querySelector("input.editThisProject")
+        editThisContract.addEventListener("click", (e) => {
             updateProject(e.currentTarget.dataset.id) 
             e.preventDefault();
         }) 
@@ -253,7 +252,7 @@ function editProject(id){
 }
 
 function updateProject(id){
-    let newContract = new Contract(
+    let newProject = new Project(
         document.getElementById("Project Name").value , 
         document.getElementById("Project Street").value, 
         document.getElementById("Project City").value, 
@@ -273,7 +272,7 @@ function updateProject(id){
 
     fetch(`http://localhost:3000/contracts/${id}`, {
         method: "PATCH",
-        body: JSON.stringify(newContract),
+        body: JSON.stringify(newProject),
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
