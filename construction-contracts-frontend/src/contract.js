@@ -207,16 +207,16 @@ function createContract(e){
             'Accept': 'application/json'
         }
     })
-    .then(resp => resp.json())
-    .then(project => {
-        main.innerHTML +=  `
-        <li> Project: <a href="#" data-id="${project.id}"> ${project.projectName}</a> 
-        | ${project.projectCompleted ? "Completed" : "Not Completed"} |
-        <button data-id=${project.id} class="deleteThisContract" >Delete</button>
-        <button data-id=${project.id} class="editThisContract" >Edit</button>
-        </li>
-        `
-    })
+    // .then(resp => resp.json())
+    // .then(project => {
+    //     main.innerHTML +=  `
+    //     <li> Project: <a href="#" data-id="${project.id}"> ${project.projectName}</a> 
+    //     | ${project.projectCompleted ? "Completed" : "Not Completed"} |
+    //     <button data-id=${project.id} class="delete" onclick="removeProject(${project.id})"; return false;>Delete</button>
+    //     <button data-id=${project.id} class="edit" onclick="editProject(${project.id})"; return false;>Edit</button>
+    //     </li>
+    //     `
+    // })
     clearForm();
     document.getElementById("main").innerHTML = ""
     
@@ -269,11 +269,12 @@ function editProject(id){
         let editThisContractor = document.querySelector("input.editProjectContract")
         editThisContractor.addEventListener("click", (e) => {
             updateContract(e.currentTarget.dataset.id) 
+            e.preventDefault();
         }) 
     })
 }
 
-function updateContract(e){
+function updateContract(id){
     let newContract = new Contract(
         document.getElementById("Project Name").value , 
         document.getElementById("Project Street").value, 
@@ -292,7 +293,7 @@ function updateContract(e){
         document.getElementById("contractorID").value
     )
 
-    fetch(`http://localhost:3000/contracts/${e}`, {
+    fetch(`http://localhost:3000/contracts/${id}`, {
         method: "PATCH",
         body: JSON.stringify(newContract),
         headers: {
@@ -302,15 +303,18 @@ function updateContract(e){
     })
     .then(resp => resp.json())
     .then(project => {
-        document.getElementsByTagName(`a[${e}]`).innerHTML =  `
-        <li><a href="#" data-id="${project.id}">${project.projectName}</a> 
+        
+        let tag = document.querySelectorAll(`li a[data-id="${id}"]`)[0].parentElement
+        
+        tag.innerHTML = `
+        Project: <a href="#" data-id="${project.id}"> ${project.projectName}</a> 
+        | ${project.projectCompleted ? "Completed" : "Not Completed"} |
         <button data-id=${project.id} class="delete" onclick="removeProject(${project.id})"; return false;>Delete</button>
         <button data-id=${project.id} class="edit" onclick="editProject(${project.id})"; return false;>Edit</button>
-        </li>
         `
         clearForm();
-        document.getElementById("main").innerHTML = ""
-        allProjects();
+        // document.getElementById("main").innerHTML = ""
+        // allProjects();
     })
     
 }
