@@ -45,29 +45,10 @@ function allProjects(){
         main.innerHTML+= projects.map(project =>  `
         <li> Project: <a href="#" data-id="${project.id}"> ${project.projectName}</a> 
         | ${project.projectCompleted ? "Completed" : "Not Completed"} |
-        <button data-id=${project.id} class="deleteThisContract" >Delete</button>
-        <button data-id=${project.id} class="editThisContract" >Edit</button>
+        <button data-id=${project.id} class="delete" onclick="removeProject(${project.id})"; return false;>Delete</button>
+        <button data-id=${project.id} class="edit" onclick="editProject(${project.id})"; return false;>Edit</button>
         </li>
         `).join(''); 
-
-        let editproject = document.querySelectorAll("button.editThisContract")
-            editproject.forEach( editContractButton => {
-                editContractButton.addEventListener("click", (e) => {
-                    //console.log(e.currentTarget.dataset.id)
-                    e.preventDefault()
-                    editProject(e.currentTarget.dataset.id)
-                    
-                    
-                })
-            })
-        
-        let deleteproject = document.querySelectorAll("button.deleteThisContract")
-            deleteproject.forEach( deleteButton => {
-                deleteButton.addEventListener("click", (e) => {
-                    removeProject(e)
-                    e.preventDefault();
-                })
-            })
 
         let individualContracts = document.querySelectorAll("a")
             individualContracts.forEach( project => {
@@ -312,6 +293,14 @@ function updateContract(id){
         <button data-id=${project.id} class="delete" onclick="removeProject(${project.id})"; return false;>Delete</button>
         <button data-id=${project.id} class="edit" onclick="editProject(${project.id})"; return false;>Edit</button>
         `
+        let individualContracts = document.querySelectorAll("a")
+            individualContracts.forEach( project => {
+                project.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    individualProject(e.currentTarget.dataset.id)
+                })
+            }) 
+
         clearForm();
         // document.getElementById("main").innerHTML = ""
         // allProjects();
@@ -328,9 +317,7 @@ function removeProject(e){
             'Accept': 'application/json'
         }
     })
-    .then( e.currentTarget.parentElement.remove())
-    
-    
+    .then( e.currentTarget.parentElement.remove())   
 }
 
 
