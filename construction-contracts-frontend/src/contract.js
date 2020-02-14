@@ -150,7 +150,7 @@ function assignProject(e){
     main.innerHTML = html
     let executeContractor = document.querySelector("input.createProjectContract")
     executeContractor.addEventListener("click", (e) => {
-        createContract(e) 
+        createProject() 
         allProjects()
         e.preventDefault()
         
@@ -158,7 +158,7 @@ function assignProject(e){
     
 }
 
-function createContract(e){
+function createProject(){
     let newContract = new Contract(
     document.getElementById("Project Name").value , 
     document.getElementById("Project Street").value, 
@@ -247,13 +247,13 @@ function editProject(id){
         main.innerHTML = html;
         let editThisContractor = document.querySelector("input.editProjectContract")
         editThisContractor.addEventListener("click", (e) => {
-            updateContract(e.currentTarget.dataset.id) 
+            updateProject(e.currentTarget.dataset.id) 
             e.preventDefault();
         }) 
     })
 }
 
-function updateContract(id){
+function updateProject(id){
     let newContract = new Contract(
         document.getElementById("Project Name").value , 
         document.getElementById("Project Street").value, 
