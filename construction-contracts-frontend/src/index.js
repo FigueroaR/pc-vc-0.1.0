@@ -13,7 +13,7 @@ function headerEventListeners(){
         document.getElementById("links").innerHTML += `<ul>
         <button class="allContractors" >All contractors</button> 
         <button class="displayContractorForm" > New Contractor</button>
-        <button class="allProject" > All projects</button>
+        <button class="allprojects" > All projects</button>
         </ul> 
         `
     ///onclick="allProjects()"; onclick="showContractors()";
@@ -23,7 +23,7 @@ function headerEventListeners(){
     let displayContractForm = document.querySelector("button.displayContractorForm")
         displayContractForm.addEventListener("click", displayContractorForms)
 
-    let projects = document.querySelector("button.allProject")
+    let projects = document.querySelector("button.allprojects")
         projects.addEventListener("click", allProjects)
 }
 

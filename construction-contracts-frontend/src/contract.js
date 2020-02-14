@@ -1,4 +1,4 @@
-class Contract {
+class Project {
     constructor(projectName, 
         projectStreet, 
         projectCity,
@@ -159,7 +159,7 @@ function assignProject(e){
 }
 
 function createProject(){
-    let newContract = new Contract(
+    let newContract = new Project(
     document.getElementById("Project Name").value , 
     document.getElementById("Project Street").value, 
     document.getElementById("Project City").value, 
@@ -235,8 +235,7 @@ function editProject(id){
         <label>Months Overdue:</label>
         <input type="number" id="Months Overdue" value="${project.monthsOverDue}"></br>
         <label>Staff Total:</label>
-        <input type="number" id="Staff Total" value="${project.projectStaff}"></br>
-        <label>Contractor has hidden field Id:</label>
+        <input type="number" id="Staff Total" value="${project.projectStaff}"></br>git 
         <input type="hidden" id="contractorID" value="${project.contractor_id}" data-id="${project.contractor_id}"> </br>
         
         <label>Complete:</label>
