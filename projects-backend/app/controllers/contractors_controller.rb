@@ -11,16 +11,18 @@ class ContractorsController < ApplicationController
   # GET /contractors/1
   def show
     render json: @contractor
+    
   end
 
   # POST /contractors
   def create
     @contractor = Contractor.new(contractor_params)
 
-    if @contractor.save
+    if @contractor.valid?
+      @contractor.save
       render json: @contractor, status: :created, location: @contractor
     else
-      render json: @contractor.errors, status: :unprocessable_entity
+      render json: @contract.errors, status: :unprocessable_entity
     end
   end
 

@@ -72,6 +72,38 @@
     padding: 25px;
   }
 
+  .notice {
+    padding: 2px;
+    background-color: #b11212;
+    display: table;
+    width: 450px;
+    border: 2px solid white;
+    padding: 7px 7px 0;
+    margin-bottom: 20px;
+    background-color: #b11212;
+  }
+
+  li a:hover {
+    background-color: #555;
+    color: black;
+  }
+
+  .active {
+    background-color: #4CAF50;
+    color: black;
+  }
+
+  .button {
+
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
 }
 
 
