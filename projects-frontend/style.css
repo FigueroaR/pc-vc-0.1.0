@@ -3,7 +3,8 @@
 @media screen {
 
   body {
-    background-color: #ffffff;
+    background-color: lightblue;
+  
     color: rgb(255, 255, 255);
     font-family: Arial, Helvetica, sans-serif;
     line-height: 18px;
@@ -66,6 +67,9 @@
     max-width: 960%;
     padding: 2.25%; /* 18px / 800px */
     width: 75%;
+    border-radius: 5px;
+    width: 700px;
+    padding: 25px;
   }
 
 }
