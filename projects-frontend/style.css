@@ -84,7 +84,7 @@
   }
 
   li a:hover {
-    background-color: #555;
+    background-color: lightblue;
     color: black;
   }
 
@@ -93,17 +93,60 @@
     color: black;
   }
 
-  .button {
-
+  button.contract {
+    border-radius: 20px;
     background-color: #4CAF50; /* Green */
-    border: none;
+    border: solid;
     color: white;
-    padding: 15px 32px;
+    padding: 5px 15px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
   }
+
+  button.edit {
+    border-radius: 20px;
+    background-color: orange; /* Green */
+    border: solid;
+    color: white;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
+
+  button.delete {
+    border-radius: 20px;
+    background-color: red; /* Green */
+    border: solid;
+    color: white;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
+
+  button {
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 20px;
+    background-color: white; /* Green */
+    border: solid;
+    color: grey;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
+  button:hover {
+    background-color: lightblue; /* Green */
+    color: white;
+  }
+
 }
 
 
