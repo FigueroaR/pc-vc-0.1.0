@@ -44,7 +44,8 @@ function allProjects(){
     .then(projects => {
         main.innerHTML+= projects.map(project =>  ` 
         <li> Project: <a href="#" data-id="${project.id}"> ${project.projectName}</a> 
-        | ${project.projectCompleted ? "Completed" : "Not Completed"} |
+        | By:
+        <button data-id=${project.contractor_id} class="show" onclick="showContractor(${project.contractor_id})"; return false;>${project.contractor_lastName}</button> | ${project.projectCompleted ? "Completed" : "Not Completed"} |
         <button data-id=${project.id} class="delete" onclick="removeProject(${project.id})"; return false;>Delete</button>
         <button data-id=${project.id} class="edit" onclick="editProject(${project.id})"; return false;>Edit</button>
         </li>
