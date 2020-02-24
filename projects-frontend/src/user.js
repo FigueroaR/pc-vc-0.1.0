@@ -73,8 +73,6 @@ function showContractor(id){
         <h3>Country:</h3>
         <p>${contractor.country} </p></br>
         `
-
-
         main.innerHTML = html
     })
 
@@ -137,11 +135,11 @@ function createContractor(){
     .then(resp => resp.json())
     .then(contractor => {
         main.innerHTML+= `
-        <li><a href="#" data-lastname="${contractor.lastName}" data-id="${contractor.id}">${contractor.lastName}</a> 
-        <button data-id=${contractor.id} class="delete" onclick="removeContractor(${contractor.id})"; return false;>Delete</button>
+        <li><a href="#" data-lastname="${contractor.lastName}" data-id="${contractor.id}">${contractor.lastName}</a>
+        <button data-id=${contractor.id} class="show" onclick="showContractor(${contractor.id})"; return false;>Profile</button>
+        <button data-lastname=${contractor.lastName} data-id=${contractor.id} class="contract" >Assign project</button>
         <button data-id=${contractor.id} class="edit" onclick="editContractor(${contractor.id})"; return false;>Edit</button>
-        <button data-lastname=${contractor.lastName} data-id=${contractor.id} class="contract">Assign project</button>
-        </li>
+        <button data-id=${contractor.id} class="delete" onclick="removeContractor(${contractor.id})"; return false;>Delete</button></li>
         `
         let newContract = document.querySelectorAll("button.contract")
             newContract.forEach( assignProjectButton => {
@@ -223,10 +221,11 @@ function updateContractor(id){
     .then( contractor => {
         let tag = document.querySelectorAll(`li a[data-id="${id}"]`)[0].parentElement
         tag.innerHTML = `
-        <a href="#" data-id="${contractor.id}">${contractor.lastName}</a> 
-        <button data-id=${contractor.id} class="delete" onclick="removeContractor(${contractor.id})"; return false;>Delete</button>
+        <a href="#" data-lastname="${contractor.lastName}" data-id="${contractor.id}">${contractor.lastName}</a>
+        <button data-id=${contractor.id} class="show" onclick="showContractor(${contractor.id})"; return false;>Profile</button>
+        <button data-lastname=${contractor.lastName} data-id=${contractor.id} class="contract" >Assign project</button>
         <button data-id=${contractor.id} class="edit" onclick="editContractor(${contractor.id})"; return false;>Edit</button>
-        <button data-id=${contractor.id} class="contract" >Assign project</button>
+        <button data-id=${contractor.id} class="delete" onclick="removeContractor(${contractor.id})"; return false;>Delete</button>
         `
         let newContract = document.querySelectorAll("button.contract")
             newContract.forEach( assignProjectButton => {
