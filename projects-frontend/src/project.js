@@ -100,11 +100,15 @@ function individualProject(id){
         <h3>Contractor ID:</h3>
         <p>${project.contractor_id}</p></br>
         <h3>Contractor lastName:</h3>
-        <p>${project.contractor_lastName}</p></br>
+        <p> <a href='#' data-id=${project.contractor_id}> ${project.contractor_lastName} </a></p></br>
         <h3>Complete:</h3>
         <p>${project.projectCompleted ? "Completed" : "Not Completed"}</p></br>
         `
         main.innerHTML = html
+        document.querySelector('a').addEventListener( 'click', (e) => {
+            showContractor(e.currentTarget.dataset.id);
+            e.preventDefault()
+        })
     })
         
 }
