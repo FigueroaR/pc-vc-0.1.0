@@ -21,10 +21,13 @@ function showContractors(){
     .then(resp => resp.json())
     .then(contractors => {
         main.innerHTML+= contractors.map( contractor =>  `
-        <li><a href="#" data-lastname="${contractor.lastName}" data-id="${contractor.id}">${contractor.lastName}</a> 
-        <button data-id=${contractor.id} class="delete" onclick="removeContractor(${contractor.id})"; return false;>Delete</button>
+        <li><a href="#" data-lastname="${contractor.lastName}" data-id="${contractor.id}">${contractor.lastName}</a>
+        <button data-id=${contractor.id} class="show" onclick="showContractor(${contractor.id})"; return false;>Profile</button>
+        <button data-lastname=${contractor.lastName} data-id=${contractor.id} class="contract" >Assign project</button>
         <button data-id=${contractor.id} class="edit" onclick="editContractor(${contractor.id})"; return false;>Edit</button>
-        <button data-lastname=${contractor.lastName} data-id=${contractor.id} class="contract" >Assign project</button></li>
+        <button data-id=${contractor.id} class="delete" onclick="removeContractor(${contractor.id})"; return false;>Delete</button></li> 
+        
+        
         `).join('');
 
         let newContract = document.querySelectorAll("button.contract")
@@ -44,6 +47,39 @@ function showContractors(){
                 })
         }) 
     })  
+}
+
+function showContractor(id){
+    clearForm();
+    document.getElementById("main").innerHTML = ""
+    let main = document.getElementById("main")
+    fetch(BASE_URL + `/contractors/${id}`)
+    .then( resp => resp.json())
+    .then(contractor => {
+
+        let html = `
+        <h3>First Name:</h3>
+        <p> ${contractor.firstName}</p></br>
+        <h3>Last Name:</h3>
+        <p> ${contractor.lastName}</p></br>
+        <h3>Phone Num:</h3>
+        <p>${contractor.phoneNum} </p></br>
+        <h3>email:</h3>
+        <p>${contractor.email} </p></br>
+        <h3>Company Name:</h3>
+        <p> ${contractor.companyName}</p></br>
+        <h3>City:</h3>
+        <p>${contractor.city} </p></br>
+        <h3>Country:</h3>
+        <p>${contractor.country} </p></br>
+        `
+
+
+        main.innerHTML = html
+    })
+
+
+
 }
 
 function displayContractorForms(e) {

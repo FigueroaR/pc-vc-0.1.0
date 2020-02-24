@@ -93,6 +93,18 @@
     color: black;
   }
 
+  button.show {
+    border-radius: 20px;
+    background-color: lightblue; /* Green */
+    border: solid;
+    color: white;
+    padding: 5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
+
   button.contract {
     border-radius: 20px;
     background-color: #4CAF50; /* Green */
@@ -142,11 +154,16 @@
     display: inline-block;
     font-size: 16px;
   }
+
   button:hover {
     background-color: lightblue; /* Green */
     color: white;
   }
 
+  button.show:hover {
+    background-color: #4CAF50; /* Green */
+    color: white;
+  }
 }
 
 
@@ -158,6 +175,4 @@
     box-shadow: none;
     width: auto;
   }
-
-
  } 
