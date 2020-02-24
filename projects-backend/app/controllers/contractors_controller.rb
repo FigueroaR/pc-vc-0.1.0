@@ -17,7 +17,7 @@ class ContractorsController < ApplicationController
   # POST /contractors
   def create
     @contractor = Contractor.new(contractor_params)
-
+    #binding.pry
     if @contractor.valid?
       @contractor.save
       render json: @contractor, status: :created, location: @contractor

@@ -160,6 +160,10 @@ function createContractor(){
 
         clearForm();
     })
+    .catch(function(error) {
+        alert("Bad things! Ragnarők!");
+        console.log(error.message);
+    })
     
 }
 
