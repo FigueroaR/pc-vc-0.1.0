@@ -20,6 +20,10 @@ function showContractors(){
     fetch("http://localhost:3000/contractors")
     .then(resp => resp.json())
     .then(contractors => {
+        contractors.sort((a, b) => (a.lastName.slice(0,2).toLocaleUpperCase()) > (b.lastName.slice(0,2).toLocaleUpperCase()) ? 1 : -1)
+        // contractors.sort((a, b) => (a.lastName.charAt(1).toLocaleUpperCase()) > (b.lastName.charAt(1).toLocaleUpperCase()) ? 1 : -1)
+        //standarizing data
+
         main.innerHTML+= contractors.map( contractor =>  `
         <li><a href="#" data-lastname="${contractor.lastName}" data-id="${contractor.id}">${contractor.lastName}</a>
         <button data-id=${contractor.id} class="show" onclick="showContractor(${contractor.id})"; return false;>Profile</button>

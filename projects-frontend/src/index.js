@@ -39,9 +39,9 @@ function contractorProjects(e){
     .then(resp => resp.json())
     .then(projects => {
         let projectsFiltered = projects.filter( project => {
-        let projectcontractorid = project.contractor_id.toString()
-        let contractorid = e
-        return projectcontractorid.match(contractorid)
+            let projectcontractorid = project.contractor_id.toString()
+            let contractorid = e
+            return projectcontractorid.match(contractorid)
     })
     main.innerHTML += projectsFiltered.map( project =>  `
         <li> Project: <a href="#" data-id="${project.id}"> ${project.projectName}</a> 
