@@ -20,8 +20,9 @@ function showContractors(){
     fetch("http://localhost:3000/contractors")
     .then(resp => resp.json())
     .then(contractors => {
-        contractors.sort((a, b) => (a.lastName.slice(0,2).toLocaleUpperCase()) > (b.lastName.slice(0,2).toLocaleUpperCase()) ? 1 : -1)
-        // contractors.sort((a, b) => (a.lastName.charAt(1).toLocaleUpperCase()) > (b.lastName.charAt(1).toLocaleUpperCase()) ? 1 : -1)
+        contractors.sort((a, b) => a.lastName.toLocaleUpperCase() > b.lastName.toLocaleUpperCase() ? 1 : -1)
+        // contractors.sort((a, b) => (a.lastName.slice(0,2).toLocaleUpperCase()) > (b.lastName.slice(0,2).toLocaleUpperCase()) ? 1 : -1)
+        // contractors.sort((a, b) => (a.lastName.charAt(0).toLocaleUpperCase()) > (b.lastName.charAt(0).toLocaleUpperCase()) ? 1 : -1)
         //standarizing data
 
         main.innerHTML+= contractors.map( contractor =>  `
