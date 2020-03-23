@@ -1,4 +1,4 @@
-const BASE_URL = "https://project-central.herokuapp.com"
+const BASE_URL = "https://localhost:3000"
 window.addEventListener('load', () => {
     
     showContractors()

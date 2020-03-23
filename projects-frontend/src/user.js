@@ -12,7 +12,7 @@ class Contractor{
 }
 
 ///////////Contractor//////////////////////////
-const BASE_URL = "https://project-central.herokuapp.com"
+
 function showContractors(){
     //console.log("i think its working")
     clearForm();

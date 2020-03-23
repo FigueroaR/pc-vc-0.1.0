@@ -35,7 +35,7 @@ class Project {
 }
 
 ///////////Project//////////////////
-const BASE_URL = "https://project-central.herokuapp.com"
+
 function allProjects(){
     document.getElementById("main").innerHTML = ""
     clearForm();
