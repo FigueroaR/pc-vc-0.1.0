@@ -35,11 +35,12 @@ class Project {
 }
 
 ///////////Project//////////////////
+const BASE_URL = "https://project-central.herokuapp.com"
 function allProjects(){
     document.getElementById("main").innerHTML = ""
     clearForm();
     let main = document.getElementById("main")
-    fetch("http://localhost:3000/contracts")
+    fetch(BASE_URL + "/contracts")
     .then(resp => resp.json())
     .then(projects => {
         main.innerHTML+= projects.map(project =>  ` 
@@ -183,7 +184,7 @@ function createProject(){
     document.getElementById("contractorlastName").value
     )
     
-    fetch("http://localhost:3000/contracts", {
+    fetch( BASE_URL + "/contracts", {
         method: "POST",
         body: JSON.stringify(newproject),
         headers: {
@@ -275,7 +276,7 @@ function updateProject(id){
         document.getElementById("contractorID").value
     )
 
-    fetch(`http://localhost:3000/contracts/${id}`, {
+    fetch( BASE_URL + `/contracts/${id}`, {
         method: "PATCH",
         body: JSON.stringify(newProject),
         headers: {

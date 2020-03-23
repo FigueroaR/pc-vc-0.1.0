@@ -12,12 +12,13 @@ class Contractor{
 }
 
 ///////////Contractor//////////////////////////
+const BASE_URL = "https://project-central.herokuapp.com"
 function showContractors(){
     //console.log("i think its working")
     clearForm();
     document.getElementById("main").innerHTML = ""
     let main = document.getElementById("main")
-    fetch("http://localhost:3000/contractors")
+    fetch( BASE_URL + "/contractors")
     .then(resp => resp.json())
     .then(contractors => {
         contractors.sort((a, b) => a.lastName.toLocaleUpperCase() > b.lastName.toLocaleUpperCase() ? 1 : -1)
@@ -174,7 +175,7 @@ function createContractor(){
 
 
 function editContractor(id){    
-    fetch(`http://localhost:3000/contractors/${id}`) 
+    fetch( BASE_URL + `/contractors/${id}`) 
     .then(resp => resp.json())
     .then(contractor => {
         let main = document.getElementById("main-form")
@@ -261,7 +262,7 @@ function updateContractor(id){
 
 function removeContractor(id){
     //console.log("e", e)
-    fetch(`http://localhost:3000/contractors/${id}`, {
+    fetch( BASE_URL + `/contractors/${id}`, {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',
