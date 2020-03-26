@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000/"
+// const BASE_URL = "https://localhost:3000/"
 window.addEventListener('load', () => {
     
     showContractors()
@@ -35,7 +35,7 @@ function contractorProjects(e){
     clearForm();
     document.getElementById("main").innerHTML = ""
     let main = document.getElementById("main")
-    fetch(BASE_URL + "/contracts")
+    fetch("/contracts")
     .then(resp => resp.json())
     .then(projects => {
         let projectsFiltered = projects.filter( project => {
