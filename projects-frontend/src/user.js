@@ -1,3 +1,5 @@
+// const BASE_URL = "https://localhost:3000"
+
 class Contractor{
     constructor(firstName, lastName, phoneNum, email, companyName,
         city, country){
