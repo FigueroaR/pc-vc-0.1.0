@@ -5,8 +5,7 @@ ruby '2.6.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.0'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4'
+
 # gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
@@ -28,6 +27,8 @@ gem 'rack-cors'
 gem 'active_model_serializers'
 gem 'pry'
 group :development, :test do
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3', '~> 1.4'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
@@ -45,6 +46,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # gem 'rails_12factor'
 # gem 'webpacker'
 
-# group :production do
-#   gem 'pg'
-# end
+group :production do
+   gem 'pg'
+ end
