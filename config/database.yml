@@ -23,7 +23,7 @@ test:
   timeout: 5000
 
 production:
-  # adapter: postgresql
-  database: <%= ENV['DATABASE_URL'] %>
-  # pool: 5
-  # timeout: 5000
+  adapter: postgresql
+  database: pc-vc-0.1.0_production
+  pool: 5
+  timeout: 5000
