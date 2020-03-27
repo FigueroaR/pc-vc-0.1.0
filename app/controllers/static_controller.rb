@@ -1,4 +1,4 @@
-class StaticController < Rails::ApplicationController
+class StaticController < ApplicationController
   def index
     render file: Rails.root.join('public', 'index.html')
   end
