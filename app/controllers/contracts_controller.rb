@@ -17,10 +17,11 @@ class ContractsController < ApplicationController
   # POST /contracts
   def create
     
-    #binding.pry
+    binding.pry
     @contract = Contract.new(contract_params)
 
-    if @contract.save
+    if @contract.valid?
+      @contract.save
       render json: @contract, status: :created, location: @contract
     else
       render json: @contract.errors, status: :unprocessable_entity

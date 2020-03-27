@@ -16,4 +16,7 @@ class ContractSerializer < ActiveModel::Serializer
   :monthsOverDue,
   :contractor_id,
   :contractor_lastName
+
+
+  belongs_to :contractor
 end

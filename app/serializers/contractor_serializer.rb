@@ -7,4 +7,7 @@ class ContractorSerializer < ActiveModel::Serializer
   :companyName,
   :city,
   :country
+
+
+  has_many :contracts
 end

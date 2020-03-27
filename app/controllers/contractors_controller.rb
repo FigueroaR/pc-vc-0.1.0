@@ -16,7 +16,7 @@ class ContractorsController < ApplicationController
 
   # POST /contractors
   def create
-    binding.pry
+    # binding.pry
     @contractor = Contractor.new(contractor_params)
     
     if @contractor.valid?
