@@ -4,7 +4,7 @@ window.addEventListener('load', () => {
     showContractors()
     //console.log('DOM fully loaded and parsed');
     headerEventListeners();
-    
+    console.log("Welcome To Project Central")
 });
 
 ///////////Listeners///////
