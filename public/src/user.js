@@ -132,7 +132,7 @@ function createContractor(){
     document.getElementById("Country").value)
 
     let main = document.getElementById("main")
-    fetch(BASE_URL+'/contractors',{
+    fetch('/contractors',{
         method: "POST",
         body: JSON.stringify(newContractor),
         headers: {
