@@ -20,7 +20,7 @@ function showContractors(){
     clearForm();
     document.getElementById("main").innerHTML = ""
     let main = document.getElementById("main")
-    fetch( "/contractors")
+    fetch( BASE_URL + "/contractors")
     .then(resp => resp.json())
     .then(contractors => {
         contractors.sort((a, b) => a.lastName.toLocaleUpperCase() > b.lastName.toLocaleUpperCase() ? 1 : -1)
@@ -132,7 +132,7 @@ function createContractor(){
     document.getElementById("Country").value)
 
     let main = document.getElementById("main")
-    fetch('/contractors',{
+    fetch(BASE_URL+'/contractors',{
         method: "POST",
         body: JSON.stringify(newContractor),
         headers: {
