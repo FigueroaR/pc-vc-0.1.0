@@ -1,5 +1,5 @@
 // const BASE_URL = "http://localhost:3000"
-// const BASE_URL = "http://czaqlvgdhkxexq:603d859661b72d0b92ce8c24b9781db02864f4e47b0693860c3055c88b4a808d@ec2-3-211-48-92.compute-1.amazonaws.com:5432/d8lfsnlsa0p6n1"
+
 window.addEventListener('load', () => {
     
     showContractors()
