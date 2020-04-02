@@ -12,7 +12,6 @@ class Contract < ApplicationRecord
     validates :projectType, presence: :true 
     validates :projectInformation, presence: :true 
     validates :projectStaff,  presence: :true
-    validates :projectCompleted, presence: :true 
     validates :monthsEstimated, presence: :true 
     validates :monthsCurrent, presence: :true 
     validates :monthsOverDue,  presence: :true
