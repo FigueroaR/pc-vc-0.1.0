@@ -4,7 +4,7 @@
 
   body {
     background-color: lightblue;
-    
+    width: auto;
     color: rgb(255, 255, 255);
     font-family: Arial, Helvetica, sans-serif;
     line-height: 18px;
@@ -74,7 +74,7 @@
   }
 
   #links {
-    text-align: center;
+    text-align: left;
   }
 
   .notice {
@@ -197,6 +197,7 @@
   
   body {
     font-size: 80%;
+    width: auto;
   }
 }
 
@@ -210,12 +211,87 @@
     margin: 16px auto;
     max-width: 100%;
     padding: 2.25%; /* 18px / 800px */
-    width: 90%;
+    width: 85%;
     border-radius: 5px;
     padding: 25px;
   }
 
   body {
     font-size: 80%;
+    width: auto;
+  }
+
+  button {
+    
+    font-size: 12px;
+    
+  }
+
+  button.show {
+    
+    font-size: 12px;
+  }
+
+  button.contract {
+    
+    font-size: 12px;
+  }
+
+  button.edit {
+    
+    font-size: 12px;
+  }
+
+  button.delete {
+    
+    font-size: 12px;
   }
  } 
+
+
+ @media screen and (max-width: 450px) { 
+
+  .wrapper {
+    background: rgb(255, 255, 255);
+    -moz-box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    -webkit-box-shadow: 0 0 10px rgba(253, 253, 253, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    margin: 16px auto;
+    max-width: 100%;
+    padding: 2.25%; /* 18px / 800px */
+    width: 85%;
+    border-radius: 5px;
+    padding: 25px;
+  }
+
+  body {
+    font-size: 80%;
+    width: auto;
+  }
+
+  button {
+    
+    font-size: 10px;
+    
+  }
+
+  button.show {
+    
+    font-size: 10px;
+  }
+
+  button.contract {
+    
+    font-size: 10px;
+  }
+
+  button.edit {
+    
+    font-size: 10px;
+  }
+
+  button.delete {
+    
+    font-size: 10px;
+  }
+ }
